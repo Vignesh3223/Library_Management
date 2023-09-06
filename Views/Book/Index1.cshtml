@@ -1,0 +1,85 @@
+﻿@model IEnumerable<Library.Models.Book>
+
+@{
+    ViewBag.Title = "Index1";
+}
+
+<h2>Books</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BookName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Author)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Picture)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Book_Genre.Genre)
+        </th>
+        <th>
+            Actions
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.BookName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Author)
+        </td>
+        <td>
+            @if (item.Picture != null)
+            {
+                <img alt="profile" src="data:image;base64,@Convert.ToBase64String(item.Picture)" />
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Book_Genre.Genre)
+        </td>
+        <td>
+            @Html.ActionLink("Take Book", "TakeBook", new { id=item.BookId },null)
+        </td>
+    </tr>
+}
+
+</table>
+
+<style>
+
+    h2 {
+        color: #C70039;
+    }
+
+    img {
+        width: 100px;
+        height: 100px;
+    }
+
+    table th, table td {
+        text-align: center;
+    }
+
+    table th {
+        background-color: #9400FF;
+        color: white;
+    }
+
+    table td {
+        color: #0C356A;
+        background-color: #FFF5E0;
+        font-weight: 600;
+        font-size: 16px;
+        font-family: 'Times New Roman';
+    }
+
+    body {
+        margin-top: 3em;
+        background-color: #FFA1F5;
+    }
+</style>

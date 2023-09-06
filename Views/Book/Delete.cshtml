@@ -1,0 +1,79 @@
+﻿@model Library.Models.Book
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete Book</h2>
+
+<h3>Are you sure you want to delete this Book?</h3>
+<div>
+    <hr />
+    <table class="table table-bordered">
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.BookName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.BookName)
+            </td>
+        </tr>
+       
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Author)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.Author)
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Picture)
+            </td>
+
+            <td>
+                <img src="data:image;base64,@Convert.ToBase64String(Model.Picture)" alt="Book Cover" />
+            </td>
+        </tr>
+     
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Book_Genre.Genre)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.Book_Genre.Genre)
+            </td>
+        </tr>
+    </table>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
+
+<style>
+
+    body {
+        margin-top: 3em;
+        background-color: #FFA1F5;
+    }
+
+    img{
+        width:100px;
+        height:100px;
+    }
+
+    h2 {
+        color: #C70039;
+    }
+</style>

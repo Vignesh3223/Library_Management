@@ -1,0 +1,103 @@
+﻿@model Library.Models.User
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>User Details</h2>
+
+<div>
+    <table class="table table-bordered">
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Username)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.Username)
+            </td>
+        </tr>
+      
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Email)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.Email)
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Password)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.Password)
+            </td>
+        </tr>
+      
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.LastLoginDate)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.LastLoginDate)
+            </td>
+        </tr>
+      
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Avatar)
+            </td>
+
+            <td>
+                <img src="data:image;base64,@Convert.ToBase64String(Model.Avatar)" alt="Profile" class="img-rounded"/>
+            </td>
+        </tr>
+     
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Role.RoleName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.Role.RoleName)
+            </td>
+        </tr>
+    </table>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.UserId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+<style>
+    img {
+        width: 100px;
+        height: 100px;
+    }
+
+    table td {
+        text-align: center;
+    }
+
+    h2 {
+        color: #C70039;
+    }
+
+    table td {
+        color: #0C356A;
+        background-color: #FFF5E0;
+        font-weight: 600;
+        font-size: 16px;
+        font-family: 'Times New Roman';
+    }
+
+    body {
+        margin-top: 3em;
+        background-color: #FFA1F5;
+    }
+</style>

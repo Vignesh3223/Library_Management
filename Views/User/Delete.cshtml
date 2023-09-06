@@ -1,0 +1,116 @@
+﻿@model Library.Models.User
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this User?</h3>
+<div>
+    <table class="table table-bordered">
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Username)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.Username)
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Email)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.Email)
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Password)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.Password)
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.LastLoginDate)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.LastLoginDate)
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Avatar)
+            </td>
+
+            <td>
+                <img src="data:image;base64,@Convert.ToBase64String(Model.Avatar)" alt="Profile" class="img-rounded" />
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Role.RoleName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.Role.RoleName)
+            </td>
+        </tr>
+    </table>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
+
+<style>
+    img {
+        width: 100px;
+        height: 100px;
+    }
+
+    table th, table td {
+        text-align: center;
+    }
+
+    h2 {
+        color: #C70039;
+    }
+
+    table th {
+        background-color: #9400FF;
+        color: white;
+    }
+
+    table td {
+        color: #0C356A;
+        background-color: #FFF5E0;
+        font-weight: 600;
+        font-size: 16px;
+        font-family: 'Times New Roman';
+    }
+
+    body {
+        margin-top: 4em;
+        background-color: #FFA1F5;
+    }
+
+</style>

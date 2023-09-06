@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" title="more options">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <img src="@Url.Content("~/Content/images/logo.png")" style="width:150px;height:80px"/>
+            </div>
+            @if (User.Identity.IsAuthenticated)
+            {
+                if (User.IsInRole("Librarian"))
+                {
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                            <li>@Html.ActionLink("Users", "Index", "User")</li>
+                            <li>@Html.ActionLink("Books", "Index", "Book")</li>
+                            <li>@Html.ActionLink("Books Taken", "Index", "BookTaken")</li>
+                            <li>@Html.ActionLink("Logout", "Logout", "User")</li>
+                        </ul>
+                    </div>
+                }
+                if (User.IsInRole("User"))
+                {
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                            <li>@Html.ActionLink("Books", "Index1", "Book")</li>
+                            <li>@Html.ActionLink("Books Taken", "Index", "BookTaken")</li>
+                            <li>@Html.ActionLink("Logout", "Logout", "User")</li>
+                        </ul>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Register", "Register", "User")</li>
+                        <li>@Html.ActionLink("Login", "Index", "User")</li>
+                    </ul>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer class="navbar-fixed-bottom">
+            <p id="footer">&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+ <style>
+
+     .navbar {
+         background-color: #AED2FF;
+     }
+
+ .navbar-nav li {
+   font-size: 16px;
+   margin-top:1em;
+   margin-left:.5em;
+   font-weight: bold
+ }
+
+ #footer{
+     font-weight:700;
+     font-size:14px;
+ }
+
+</style>
+
+</body>
+
+
+</html>

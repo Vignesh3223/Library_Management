@@ -1,0 +1,99 @@
+﻿@model Library.Models.User
+
+@{
+    ViewBag.Title = "Login";
+}
+
+@using (Html.BeginForm("Login", "User", FormMethod.Post))
+{
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="text-center">Login</h2>
+            </div>
+
+            <div class="card-body">
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @PlaceHolder = "Email" })
+                    @Html.ValidationMessageFor(m => m.Email)
+                </div>
+                <div class="form-group">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", @PlaceHolder = "Password" })
+                    @Html.ValidationMessageFor(m => m.Password)
+                </div>
+                <div class="form-group text-center mt-3">
+                    <button type="submit" class="btn btn1">Login</button>
+                    @Html.ActionLink("New User", "Register", null, new { @class = "btn2" })
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<style>
+
+    h2 {
+        color: white;
+        padding-bottom: 20px;
+    }
+
+    .card {
+        width: 35%;
+        margin: 10em auto 7em auto;
+        border: 1px solid grey;
+        border-radius: 25px;
+        padding: 15px;
+        background-color: #27005D;
+    }
+
+        .card:hover {
+            transform: scale(1.05);
+            border: 1px solid black;
+        }
+
+    .form-group .form-control {
+        border: none;
+        border-radius: 25px;
+        outline: none;
+        color: white;
+        background-color: #27005D;
+        width: 100%;
+        margin: 0 auto 0 auto;
+        box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
+    }
+
+    .btn1 {
+        color: white;
+        background-color: #9400FF;
+        border-radius: 5px;
+        border: none;
+        margin-right:1em;
+    }
+
+        .btn1:hover {
+            background-color: black;
+            color: white;
+        }
+
+    .btn2 {
+        color: white;
+        font-size: 16px;
+    }
+
+        .btn2:hover {
+            color: #9400FF;
+            text-decoration: none;
+        }
+</style>
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+@if (@ViewBag.Message != null)
+{
+    <script type="text/javascript">
+            $(function () {
+                alert("@ViewBag.Message")
+            });
+    </script>
+}
+
