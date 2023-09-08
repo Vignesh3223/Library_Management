@@ -6,9 +6,6 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -23,7 +20,6 @@
         <th>
             @Html.DisplayNameFor(model => model.ReturnDate)
         </th>
-        <th></th>
     </tr>
 
     @foreach (var item in Model)
@@ -40,11 +36,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ReturnDate)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.TakeId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.TakeId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.TakeId })
             </td>
         </tr>
     }
@@ -76,6 +67,5 @@
 
     body {
         margin-top: 3em;
-        background-color: #FFA1F5;
     }
 </style>

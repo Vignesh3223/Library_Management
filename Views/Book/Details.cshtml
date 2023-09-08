@@ -5,54 +5,35 @@
 }
 
 <h2>Book Details</h2>
+<hr/>
+<div class="col-12">
+    <div class="card" style="width: 26rem;">
+        <img src="data:image;base64,@Convert.ToBase64String(Model.Picture)" class="card-img-top" alt="Cover">
+        <div class="card-body">
+            <p class="card-title text-center p-2"> @Html.DisplayFor(model => model.BookName)</p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><i class="fa-solid fa-user-pen" style="color: #000000;"></i> @Html.DisplayFor(model => model.Author)</li>
+            <li class="list-group-item"><i class="fa-solid fa-book" style="color: #000000;"></i> @Html.DisplayFor(model => model.Book_Genre.Genre)</li>
+        </ul>
+        <div class="card-body text-center">
+            <a href="@Url.Action("Edit", new { id = Model.BookId })" class="btn btn-success">
+                Edit  <i class="fa-solid fa-pen-to-square" style="color: #ffffff;"></i>
+            </a>
+        </div>
+    </div>
 
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.BookName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BookName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Author)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Author)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Picture)
-        </dt>
-
-        <dd>
-            <img src="data:image;base64,@Convert.ToBase64String(Model.Picture)" alt="Book Cover" />
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Book_Genre.Genre)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Book_Genre.Genre)
-        </dd>
-
-    </dl>
+    <div>
+        <a href="@Url.Action("Index")" class="btn btn-warning">
+            <i class="fa-solid fa-arrow-left" style="color: #000000;"></i> Go Back
+        </a>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.BookId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
 
 <style>
 
     body {
         margin-top: 3em;
-        background-color: #FFA1F5;
     }
 
     h2 {
@@ -60,7 +41,32 @@
     }
 
     img{
-        width:100px;
-        height:100px;
+        width:250px;
+        height:200px;
     }
+
+    .card {
+        margin: 10px auto 10px auto;
+        background-color: #07182E;
+        padding: 5px;
+        border-radius: 10px;
+        position: relative;
+        box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+        background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+    }
+
+    
+    .card-title {
+        background: rgb(5, 6, 45);
+        border-radius: 5px;
+        font-size: 18px;
+        font-weight: 700;
+        color: whitesmoke;
+    }
+
+    .list-group-flush {
+        font-size: 15px;
+        font-weight: 600;
+    }
+
 </style>

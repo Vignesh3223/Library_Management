@@ -3,8 +3,10 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Jaffna Library</title>
+    <script src="https://kit.fontawesome.com/d7200c44d8.js" crossorigin="anonymous"></script>
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/bootstrap.min.css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
@@ -26,7 +28,7 @@
                         <ul class="nav navbar-nav">
                             <li>@Html.ActionLink("Home", "Index", "Home")</li>
                             <li>@Html.ActionLink("Users", "Index", "User")</li>
-                            <li>@Html.ActionLink("Books", "Index", "Book")</li>
+                            <li>@Html.ActionLink("Books", "BookGenres", "Book")</li>
                             <li>@Html.ActionLink("Books Taken", "Index", "BookTaken")</li>
                             <li>@Html.ActionLink("Logout", "Logout", "User")</li>
                         </ul>
@@ -37,8 +39,8 @@
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
                             <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                            <li>@Html.ActionLink("Books", "Index1", "Book")</li>
-                            <li>@Html.ActionLink("Books Taken", "Index", "BookTaken")</li>
+                            <li>@Html.ActionLink("Books", "BookGenres1", "Book")</li>
+                            <li>@Html.ActionLink("Books Taken", "Index1", "BookTaken")</li>
                             <li>@Html.ActionLink("Logout", "Logout", "User")</li>
                         </ul>
                     </div>
@@ -56,10 +58,10 @@
             }
         </div>
     </div>
-    <div class="container body-content">
+    <div class="container ">
         @RenderBody()
         <hr />
-        <footer class="navbar-fixed-bottom">
+        <footer>
             <p id="footer">&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
@@ -70,9 +72,9 @@
 
  <style>
 
-     .navbar {
-         background-color: #AED2FF;
-     }
+  .navbar {
+     background-color: #AED2FF;
+  }
 
  .navbar-nav li {
    font-size: 16px;

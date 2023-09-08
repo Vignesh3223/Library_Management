@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Library.Models.Book_Genre>
+
+@{
+    ViewBag.Title = "BookGenres1";
+}
+
+<h2>Pick your Genre</h2>
+<hr />
+<div class="row">
+    @foreach (Library.Models.Book_Genre item in Model)
+    {
+        <div class="col-md-4 col-sm-6">
+
+            <div class="card text-center" style="width:300px">
+                <div class="card-body">
+                    @Html.ActionLink(item.Genre, "Index1", "Book", new { GenreId = item.GenreId }, null)
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    body {
+        margin-top: 3em;
+    }
+
+    h2 {
+        color: #C70039;
+    }
+
+    .card {
+        margin: 10px 0 10px 0;
+        background-color: #07182E;
+        padding: 5px;
+        border-radius: 10px;
+        position: relative;
+        box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+        background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+    }
+
+
+    .card-body {
+        background: rgb(5, 6, 45);
+        border-radius: 5px;
+        padding: 10px;
+        font-size: 18px;
+        font-weight: 700;
+        color: whitesmoke;
+    }
+</style>
+

@@ -66,14 +66,16 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-success" />
+                <button type="submit"  class="btn btn-success"><i class="fa-solid fa-check" style="color: #ffffff;"></i> Save</button>
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    <a href="@Url.Action("Index")" class="btn btn-warning">
+        <i class="fa-solid fa-arrow-left" style="color: #000000;"></i> Go Back
+    </a>
 </div>
 
 @section Scripts {
@@ -88,7 +90,6 @@
 
     body {
         margin-top: 3em;
-        background-color: #FFA1F5;
     }
     
 </style>

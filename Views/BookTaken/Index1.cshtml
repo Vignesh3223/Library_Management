@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Library.Models.Book_Taken>
+
+@{
+    ViewBag.Title = "Index1";
+}
+
+<h2>Taken Books</h2>
+
+<div>
+    <hr />
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 col-sm-6">
+                <div class="card" style="width: 18rem;">
+                    <img src=" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title"> @Html.DisplayFor(modelItem => item.BookName)</h5>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">@Html.DisplayFor(modelItem => item.TakenDate)</li>
+                        <li class="list-group-item">@Html.DisplayFor(modelItem => item.ReturnDate)</li>
+                    </ul>
+                    <div class="card-body text-center">
+                        @Html.ActionLink("Return Book", "ReturnBook", new { id = item.TakeId }, new { @class = "btn btn-primary" })
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+
+    h2 {
+        color: #C70039;
+    }
+
+    body {
+        margin-top: 3em;
+    }
+
+    img {
+        width: 250px;
+        height: 200px;
+    }
+
+    .card {
+        margin: 10px 0 10px 0;
+        background-color: #07182E;
+        padding: 5px;
+        border-radius: 10px;
+        position: relative;
+        box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+        background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+    }
+
+
+    .card-title {
+        background: rgb(5, 6, 45);
+        border-radius: 5px;
+        font-size: 18px;
+        font-weight: 700;
+        color: whitesmoke;
+    }
+
+    .list-group-flush {
+        font-size: 15px;
+        font-weight: 600;
+    }
+</style>

@@ -22,7 +22,7 @@ namespace Library.Models
         public Nullable<int> ExceededDays { get; set; }
         public Nullable<int> FineAmount { get; set; }
     
-        public virtual Book Book { get; set; }
         public virtual User User { get; set; }
+        public virtual Book Book { get; set; }
     }
 }

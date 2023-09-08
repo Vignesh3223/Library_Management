@@ -11,6 +11,7 @@
           </Key>
           <Property Name="GenreId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Genre" Type="varchar" MaxLength="30" />
+          <Property Name="Image" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Book_Taken">
           <Key>
@@ -23,12 +24,13 @@
           <Property Name="BookName" Type="varchar" MaxLength="40" />
           <Property Name="TakenDate" Type="datetime" />
           <Property Name="ReturnDate" Type="datetime" />
+          <Property Name="Picture" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Books">
           <Key>
             <PropertyRef Name="BookId" />
           </Key>
-          <Property Name="BookId" Type="int" Nullable="false" />
+          <Property Name="BookId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BookName" Type="varchar" MaxLength="40" />
           <Property Name="Author" Type="varchar" MaxLength="35" />
           <Property Name="GenreId" Type="int" />
@@ -65,7 +67,7 @@
           <Property Name="RoleId" Type="int" />
           <Property Name="Avatar" Type="varbinary(max)" />
         </EntityType>
-        <Association Name="FK__Book_Take__BookI__49C3F6B7">
+        <Association Name="FK__Book_Take__BookI__60A75C0F">
           <End Role="Books" Type="Self.Books" Multiplicity="0..1" />
           <End Role="Book_Taken" Type="Self.Book_Taken" Multiplicity="*" />
           <ReferentialConstraint>
@@ -77,7 +79,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Book_Take__UserI__48CFD27E">
+        <Association Name="FK__Book_Take__UserI__5FB337D6">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="Book_Taken" Type="Self.Book_Taken" Multiplicity="*" />
           <ReferentialConstraint>
@@ -89,7 +91,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Books__GenreId__3E52440B">
+        <Association Name="FK__Books__GenreId__5CD6CB2B">
           <End Role="Book_Genre" Type="Self.Book_Genre" Multiplicity="0..1" />
           <End Role="Books" Type="Self.Books" Multiplicity="*" />
           <ReferentialConstraint>
@@ -101,7 +103,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Fine__BookId__44FF419A">
+        <Association Name="FK__Fine__BookId__6477ECF3">
           <End Role="Books" Type="Self.Books" Multiplicity="0..1" />
           <End Role="Fine" Type="Self.Fine" Multiplicity="*" />
           <ReferentialConstraint>
@@ -113,7 +115,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Fine__UserId__440B1D61">
+        <Association Name="FK__Fine__UserId__6383C8BA">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="Fine" Type="Self.Fine" Multiplicity="*" />
           <ReferentialConstraint>
@@ -148,23 +150,23 @@
           <EntitySet Name="Fine" EntityType="Self.Fine" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Book_Take__BookI__49C3F6B7" Association="Self.FK__Book_Take__BookI__49C3F6B7">
+          <AssociationSet Name="FK__Book_Take__BookI__60A75C0F" Association="Self.FK__Book_Take__BookI__60A75C0F">
             <End Role="Books" EntitySet="Books" />
             <End Role="Book_Taken" EntitySet="Book_Taken" />
           </AssociationSet>
-          <AssociationSet Name="FK__Book_Take__UserI__48CFD27E" Association="Self.FK__Book_Take__UserI__48CFD27E">
+          <AssociationSet Name="FK__Book_Take__UserI__5FB337D6" Association="Self.FK__Book_Take__UserI__5FB337D6">
             <End Role="Users" EntitySet="Users" />
             <End Role="Book_Taken" EntitySet="Book_Taken" />
           </AssociationSet>
-          <AssociationSet Name="FK__Books__GenreId__3E52440B" Association="Self.FK__Books__GenreId__3E52440B">
+          <AssociationSet Name="FK__Books__GenreId__5CD6CB2B" Association="Self.FK__Books__GenreId__5CD6CB2B">
             <End Role="Book_Genre" EntitySet="Book_Genre" />
             <End Role="Books" EntitySet="Books" />
           </AssociationSet>
-          <AssociationSet Name="FK__Fine__BookId__44FF419A" Association="Self.FK__Fine__BookId__44FF419A">
+          <AssociationSet Name="FK__Fine__BookId__6477ECF3" Association="Self.FK__Fine__BookId__6477ECF3">
             <End Role="Books" EntitySet="Books" />
             <End Role="Fine" EntitySet="Fine" />
           </AssociationSet>
-          <AssociationSet Name="FK__Fine__UserId__440B1D61" Association="Self.FK__Fine__UserId__440B1D61">
+          <AssociationSet Name="FK__Fine__UserId__6383C8BA" Association="Self.FK__Fine__UserId__6383C8BA">
             <End Role="Users" EntitySet="Users" />
             <End Role="Fine" EntitySet="Fine" />
           </AssociationSet>
@@ -183,20 +185,8 @@
           </Key>
           <Property Name="GenreId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Genre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Books" Relationship="Self.FK__Books__GenreId__3E52440B" FromRole="Book_Genre" ToRole="Books" />
-        </EntityType>
-        <EntityType Name="Book">
-          <Key>
-            <PropertyRef Name="BookId" />
-          </Key>
-          <Property Name="BookId" Type="Int32" Nullable="false" />
-          <Property Name="BookName" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
-          <Property Name="Author" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
-          <Property Name="GenreId" Type="Int32" />
-          <NavigationProperty Name="Book_Genre" Relationship="Self.FK__Books__GenreId__3E52440B" FromRole="Books" ToRole="Book_Genre" />
-          <NavigationProperty Name="Fines" Relationship="Self.FK__Fine__BookId__44FF419A" FromRole="Books" ToRole="Fine" />
-          <NavigationProperty Name="Book_Taken" Relationship="Library_ManagementModel.FK__Book_Take__BookI__49C3F6B7" FromRole="Book" ToRole="Book_Taken" />
-          <Property Name="Picture" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Books" Relationship="Library_ManagementModel.FK__Books__GenreId__5CD6CB2B" FromRole="Book_Genre" ToRole="Book" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="Fine">
           <Key>
@@ -209,8 +199,8 @@
           <Property Name="BookName" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="ExceededDays" Type="Int32" />
           <Property Name="FineAmount" Type="Int32" />
-          <NavigationProperty Name="Book" Relationship="Self.FK__Fine__BookId__44FF419A" FromRole="Fine" ToRole="Books" />
           <NavigationProperty Name="User" Relationship="Self.FK__Fine__UserId__440B1D61" FromRole="Fine" ToRole="Users" />
+          <NavigationProperty Name="Book" Relationship="Library_ManagementModel.FK__Fine__BookId__6477ECF3" FromRole="Fine" ToRole="Book" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -235,30 +225,6 @@
           <NavigationProperty Name="Book_Taken" Relationship="Library_ManagementModel.FK__Book_Take__UserI__48CFD27E" FromRole="User" ToRole="Book_Taken" />
           <Property Name="Avatar" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <Association Name="FK__Books__GenreId__3E52440B">
-          <End Role="Book_Genre" Type="Self.Book_Genre" Multiplicity="0..1" />
-          <End Role="Books" Type="Self.Book" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Book_Genre">
-              <PropertyRef Name="GenreId" />
-            </Principal>
-            <Dependent Role="Books">
-              <PropertyRef Name="GenreId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Fine__BookId__44FF419A">
-          <End Role="Books" Type="Self.Book" Multiplicity="0..1" />
-          <End Role="Fine" Type="Self.Fine" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Books">
-              <PropertyRef Name="BookId" />
-            </Principal>
-            <Dependent Role="Fine">
-              <PropertyRef Name="BookId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Fine__UserId__440B1D61">
           <End Role="Users" Type="Self.User" Multiplicity="0..1" />
           <End Role="Fine" Type="Self.Fine" Multiplicity="*" />
@@ -285,18 +251,9 @@
         </Association>
         <EntityContainer Name="Library_ManagementEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Book_Genre" EntityType="Self.Book_Genre" />
-          <EntitySet Name="Books" EntityType="Self.Book" />
           <EntitySet Name="Fines" EntityType="Self.Fine" />
           <EntitySet Name="Roles" EntityType="Self.Role" />
           <EntitySet Name="Users" EntityType="Self.User" />
-          <AssociationSet Name="FK__Books__GenreId__3E52440B" Association="Self.FK__Books__GenreId__3E52440B">
-            <End Role="Book_Genre" EntitySet="Book_Genre" />
-            <End Role="Books" EntitySet="Books" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Fine__BookId__44FF419A" Association="Self.FK__Fine__BookId__44FF419A">
-            <End Role="Books" EntitySet="Books" />
-            <End Role="Fine" EntitySet="Fines" />
-          </AssociationSet>
           <AssociationSet Name="FK__Fine__UserId__440B1D61" Association="Self.FK__Fine__UserId__440B1D61">
             <End Role="Users" EntitySet="Users" />
             <End Role="Fine" EntitySet="Fines" />
@@ -310,13 +267,22 @@
             <Parameter Name="Password" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="Book_Taken" EntityType="Library_ManagementModel.Book_Taken" />
-          <AssociationSet Name="FK__Book_Take__BookI__49C3F6B7" Association="Library_ManagementModel.FK__Book_Take__BookI__49C3F6B7">
-            <End Role="Book" EntitySet="Books" />
-            <End Role="Book_Taken" EntitySet="Book_Taken" />
-          </AssociationSet>
           <AssociationSet Name="FK__Book_Take__UserI__48CFD27E" Association="Library_ManagementModel.FK__Book_Take__UserI__48CFD27E">
             <End Role="User" EntitySet="Users" />
             <End Role="Book_Taken" EntitySet="Book_Taken" />
+          </AssociationSet>
+          <EntitySet Name="Books" EntityType="Library_ManagementModel.Book" />
+          <AssociationSet Name="FK__Books__GenreId__5CD6CB2B" Association="Library_ManagementModel.FK__Books__GenreId__5CD6CB2B">
+            <End Role="Book_Genre" EntitySet="Book_Genre" />
+            <End Role="Book" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Book_Take__BookI__60A75C0F" Association="Library_ManagementModel.FK__Book_Take__BookI__60A75C0F">
+            <End Role="Book" EntitySet="Books" />
+            <End Role="Book_Taken" EntitySet="Book_Taken" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Fine__BookId__6477ECF3" Association="Library_ManagementModel.FK__Fine__BookId__6477ECF3">
+            <End Role="Book" EntitySet="Books" />
+            <End Role="Fine" EntitySet="Fines" />
           </AssociationSet>
         </EntityContainer>
         <ComplexType Name="Validate_User_Result">
@@ -334,21 +300,10 @@
           <Property Name="BookName" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="TakenDate" Type="DateTime" Precision="3" />
           <Property Name="ReturnDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Book" Relationship="Library_ManagementModel.FK__Book_Take__BookI__49C3F6B7" FromRole="Book_Taken" ToRole="Book" />
           <NavigationProperty Name="User" Relationship="Library_ManagementModel.FK__Book_Take__UserI__48CFD27E" FromRole="Book_Taken" ToRole="User" />
+          <NavigationProperty Name="Book" Relationship="Library_ManagementModel.FK__Book_Take__BookI__60A75C0F" FromRole="Book_Taken" ToRole="Book" />
+          <Property Name="Picture" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <Association Name="FK__Book_Take__BookI__49C3F6B7">
-          <End Type="Library_ManagementModel.Book" Role="Book" Multiplicity="0..1" />
-          <End Type="Library_ManagementModel.Book_Taken" Role="Book_Taken" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Book">
-              <PropertyRef Name="BookId" />
-            </Principal>
-            <Dependent Role="Book_Taken">
-              <PropertyRef Name="BookId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Book_Take__UserI__48CFD27E">
           <End Type="Library_ManagementModel.User" Role="User" Multiplicity="0..1" />
           <End Type="Library_ManagementModel.Book_Taken" Role="Book_Taken" Multiplicity="*" />
@@ -361,6 +316,55 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="BookId" />
+          </Key>
+          <Property Name="BookId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookName" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Author" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
+          <Property Name="GenreId" Type="Int32" />
+          <Property Name="Picture" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Book_Genre" Relationship="Library_ManagementModel.FK__Books__GenreId__5CD6CB2B" FromRole="Book" ToRole="Book_Genre" />
+          <NavigationProperty Name="Book_Taken" Relationship="Library_ManagementModel.FK__Book_Take__BookI__60A75C0F" FromRole="Book" ToRole="Book_Taken" />
+          <NavigationProperty Name="Fines" Relationship="Library_ManagementModel.FK__Fine__BookId__6477ECF3" FromRole="Book" ToRole="Fine" />
+        </EntityType>
+        <Association Name="FK__Books__GenreId__5CD6CB2B">
+          <End Type="Library_ManagementModel.Book_Genre" Role="Book_Genre" Multiplicity="0..1" />
+          <End Type="Library_ManagementModel.Book" Role="Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book_Genre">
+              <PropertyRef Name="GenreId" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="GenreId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Book_Take__BookI__60A75C0F">
+          <End Type="Library_ManagementModel.Book" Role="Book" Multiplicity="0..1" />
+          <End Type="Library_ManagementModel.Book_Taken" Role="Book_Taken" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="BookId" />
+            </Principal>
+            <Dependent Role="Book_Taken">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Fine__BookId__6477ECF3">
+          <End Type="Library_ManagementModel.Book" Role="Book" Multiplicity="0..1" />
+          <End Type="Library_ManagementModel.Fine" Role="Fine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="BookId" />
+            </Principal>
+            <Dependent Role="Fine">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -370,19 +374,9 @@
           <EntitySetMapping Name="Book_Genre">
             <EntityTypeMapping TypeName="Library_ManagementModel.Book_Genre">
               <MappingFragment StoreEntitySet="Book_Genre">
+                <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="GenreId" ColumnName="GenreId" />
                 <ScalarProperty Name="Genre" ColumnName="Genre" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Books">
-            <EntityTypeMapping TypeName="Library_ManagementModel.Book">
-              <MappingFragment StoreEntitySet="Books">
-                <ScalarProperty Name="Picture" ColumnName="Picture" />
-                <ScalarProperty Name="BookId" ColumnName="BookId" />
-                <ScalarProperty Name="BookName" ColumnName="BookName" />
-                <ScalarProperty Name="Author" ColumnName="Author" />
-                <ScalarProperty Name="GenreId" ColumnName="GenreId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -431,6 +425,7 @@
           <EntitySetMapping Name="Book_Taken">
             <EntityTypeMapping TypeName="Library_ManagementModel.Book_Taken">
               <MappingFragment StoreEntitySet="Book_Taken">
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
                 <ScalarProperty Name="ReturnDate" ColumnName="ReturnDate" />
                 <ScalarProperty Name="TakenDate" ColumnName="TakenDate" />
                 <ScalarProperty Name="BookName" ColumnName="BookName" />
@@ -438,6 +433,17 @@
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="TakeId" ColumnName="TakeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Books">
+            <EntityTypeMapping TypeName="Library_ManagementModel.Book">
+              <MappingFragment StoreEntitySet="Books">
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="GenreId" ColumnName="GenreId" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="BookName" ColumnName="BookName" />
+                <ScalarProperty Name="BookId" ColumnName="BookId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

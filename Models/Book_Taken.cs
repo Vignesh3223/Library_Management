@@ -21,8 +21,9 @@ namespace Library.Models
         public string BookName { get; set; }
         public Nullable<System.DateTime> TakenDate { get; set; }
         public Nullable<System.DateTime> ReturnDate { get; set; }
+        public byte[] Picture { get; set; }
     
-        public virtual Book Book { get; set; }
         public virtual User User { get; set; }
+        public virtual Book Book { get; set; }
     }
 }

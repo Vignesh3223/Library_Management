@@ -10,88 +10,79 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 
-<table class="table table-bordered">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.BookId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BookName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Author)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Picture)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Book_Genre.Genre)
-        </th>
-        <th>
-            Actions
-        </th>
-    </tr>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 col-sm-6 text-center">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.BookId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BookName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Author)
-        </td>
-        <td>
-            @if (item.Picture != null)
-            {
-                <img alt="profile" src="data:image;base64,@Convert.ToBase64String(item.Picture)" />
-            }
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Book_Genre.Genre)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.BookId }) |
-            @Html.ActionLink("Details", "Details", new { id = item.BookId }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.BookId })
-        </td>
-    </tr>
-}
+            <div class="card" style="width: 26rem;">
+                <img class="card-img-top" src="data:image;base64,@Convert.ToBase64String(item.Picture)" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.BookName)</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><i class="fa-solid fa-hashtag" style="color: #000000;"></i> @Html.DisplayFor(modelItem => item.BookId)</li>
+                    <li class="list-group-item"><i class="fa-solid fa-user-pen" style="color: #000000;"></i> @Html.DisplayFor(modelItem => item.Author)</li>
+                    <li class="list-group-item"><i class="fa-solid fa-book" style="color: #000000;"></i> @Html.DisplayFor(modelItem => item.Book_Genre.Genre)</li>
+                </ul>
+                <div class="card-body">
+                    <a href="@Url.Action("Edit", new { id = item.BookId })" class="btn btn-success">
+                        <i class="fa-solid fa-pen-to-square" style="color: #ffffff;"></i>
+                    </a> |
+                    <a href="@Url.Action("Details", new { id = item.BookId })" class="btn btn-info">
+                        <i class="fa-solid fa-circle-info" style="color: #ffffff;"></i>
+                    </a> |
+                    <a href="@Url.Action("Delete", new { id = item.BookId })" class="btn btn-danger">
+                        <i class="fa-solid fa-trash" style="color: #ffffff;"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
 
-</table>
+<div>
+    <a href="@Url.Action("BookGenres")" class="btn btn-warning">
+        <i class="fa-solid fa-arrow-left" style="color: #000000;"></i> Go Back
+    </a>
+</div>
 
 <style>
 
     h2 {
         color: #C70039;
     }
-
-    img {
-        width: 100px;
-        height: 100px;
-    }
-
-    table th, table td {
-        text-align: center;
-    }
-
-    table th {
-        background-color: #9400FF;
-        color: white;
-    }
-
-    table td {
-        color: #0C356A;
-        background-color: #FFF5E0;
-        font-weight: 600;
-        font-size: 16px;
-        font-family: 'Times New Roman';
-    }
-
+    
     body {
         margin-top: 3em;
-        background-color: #FFA1F5;
     }
+
+    img {
+        width: 250px;
+        height: 200px;
+    }
+
+    .card {
+        margin: 10px 0 10px 0;
+        background-color: #07182E;
+        padding: 5px;
+        border-radius: 10px;
+        position: relative;
+        box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+        background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+    }
+
+     .card-title {
+        background: rgb(5, 6, 45);
+        border-radius: 5px;
+        font-size: 18px;
+        font-weight: 700;
+        color: whitesmoke;
+    }
+
+    .list-group-flush {
+        font-size: 15px;
+        font-weight: 600;
+    }
+
 </style>

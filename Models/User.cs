@@ -26,7 +26,7 @@ namespace Library.Models
         public string Email { get; set; }
         public string Password { get; set; }
         public Nullable<System.DateTime> LastLoginDate { get; set; }
-        public Nullable<int> RoleId { get; set; } = 2;
+        public Nullable<int> RoleId { get; set; }
         public byte[] Avatar { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

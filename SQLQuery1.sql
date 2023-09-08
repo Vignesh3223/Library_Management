@@ -40,7 +40,7 @@ select*from Book_Genre
 
 create table Books
 (
-BookId int primary key,
+BookId int primary key identity(1,1),
 BookName varchar(40),
 Author varchar(35),
 GenreId int references Book_Genre(GenreId)
@@ -90,6 +90,4 @@ select -1[UserId],''[Roles]
 end
 end
 
-
-alter table Books add Picture varbinary(max)
-
+alter table Book_Taken add Picture varbinary(max)

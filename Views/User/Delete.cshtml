@@ -4,113 +4,76 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
+<h2>Delete User</h2>
 
 <h3>Are you sure you want to delete this User?</h3>
-<div>
-    <table class="table table-bordered">
-        <tr>
-            <td>
-                @Html.DisplayNameFor(model => model.Username)
-            </td>
-
-            <td>
-                @Html.DisplayFor(model => model.Username)
-            </td>
-        </tr>
-
-        <tr>
-            <td>
-                @Html.DisplayNameFor(model => model.Email)
-            </td>
-
-            <td>
-                @Html.DisplayFor(model => model.Email)
-            </td>
-        </tr>
-
-        <tr>
-            <td>
-                @Html.DisplayNameFor(model => model.Password)
-            </td>
-
-            <td>
-                @Html.DisplayFor(model => model.Password)
-            </td>
-        </tr>
-
-        <tr>
-            <td>
-                @Html.DisplayNameFor(model => model.LastLoginDate)
-            </td>
-
-            <td>
-                @Html.DisplayFor(model => model.LastLoginDate)
-            </td>
-        </tr>
-
-        <tr>
-            <td>
-                @Html.DisplayNameFor(model => model.Avatar)
-            </td>
-
-            <td>
-                <img src="data:image;base64,@Convert.ToBase64String(Model.Avatar)" alt="Profile" class="img-rounded" />
-            </td>
-        </tr>
-
-        <tr>
-            <td>
-                @Html.DisplayNameFor(model => model.Role.RoleName)
-            </td>
-
-            <td>
-                @Html.DisplayFor(model => model.Role.RoleName)
-            </td>
-        </tr>
-    </table>
-
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-danger" /> |
-            @Html.ActionLink("Back to List", "Index")
+<hr />
+<div class="col-12">
+    <div class="card" style="width: 26rem;">
+        <img src="data:image;base64,@Convert.ToBase64String(Model.Avatar)" class="card-img-top" alt="Profile">
+        <div class="card-body">
+            <p class="card-title text-center"> @Html.DisplayFor(model => model.Username)</p>
         </div>
-    }
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><i class="fa-solid fa-envelope" style="color: #000000;"></i> @Html.DisplayFor(model => model.Email)</li>
+            <li class="list-group-item"><i class="fa-solid fa-clock" style="color: #000000;"></i> @Html.DisplayFor(model => model.LastLoginDate)</li>
+            <li class="list-group-item"><i class="fa-solid fa-user-secret" style="color: #000000;"></i> @Html.DisplayFor(model => model.Role.RoleName)</li>
+        </ul>
+        <div class="card-body text-center">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <button type="submit" class="btn btn-danger">Delete <i class="fa-solid fa-trash" style="color: #ffffff;"></i></button>
+            }
+        </div>
+    </div>
+
+    <div>
+        <a href="@Url.Action("Index")" class="btn btn-warning">
+            <i class="fa-solid fa-arrow-left" style="color: #000000;"></i> Go Back
+        </a>
+    </div>
 </div>
 
 <style>
     img {
-        width: 100px;
-        height: 100px;
-    }
-
-    table th, table td {
-        text-align: center;
+        width: 250px;
+        height: 200px;
     }
 
     h2 {
         color: #C70039;
     }
 
-    table th {
-        background-color: #9400FF;
-        color: white;
-    }
-
-    table td {
-        color: #0C356A;
-        background-color: #FFF5E0;
-        font-weight: 600;
-        font-size: 16px;
-        font-family: 'Times New Roman';
-    }
-
     body {
         margin-top: 4em;
-        background-color: #FFA1F5;
+    }
+
+    .card {
+        margin: 10px auto 10px auto;
+        background-color: #07182E;
+        padding: 5px;
+        border-radius: 10px;
+        position: relative;
+        box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+        background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+    }
+
+    h3 {
+        color: #C70039;
+    }
+
+    .card-title {
+        background: rgb(5, 6, 45);
+        border-radius: 5px;
+        font-size: 18px;
+        font-weight: 700;
+        color: whitesmoke;
+    }
+
+    .list-group-flush {
+        font-size: 15px;
+        font-weight: 600;
     }
 
 </style>

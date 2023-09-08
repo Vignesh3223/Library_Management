@@ -6,18 +6,17 @@
     <edmx:Diagrams>
       <Diagram DiagramId="40fae2c7085d48058519d02f614ff098" Name="Diagram1">
         <EntityTypeShape EntityType="Library_ManagementModel.Book_Genre" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Library_ManagementModel.Book" Width="1.5" PointX="2.875" PointY="4.875" IsExpanded="true" />
         <EntityTypeShape EntityType="Library_ManagementModel.Fine" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="Library_ManagementModel.Role" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Library_ManagementModel.User" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <AssociationConnector Association="Library_ManagementModel.FK__Books__GenreId__3E52440B" ManuallyRouted="false" />
-        <AssociationConnector Association="Library_ManagementModel.FK__Fine__BookId__44FF419A" ManuallyRouted="false" >
-        </AssociationConnector>
         <AssociationConnector Association="Library_ManagementModel.FK__Fine__UserId__440B1D61" ManuallyRouted="false" />
         <AssociationConnector Association="Library_ManagementModel.FK__Users__RoleId__38996AB5" ManuallyRouted="false" />
         <EntityTypeShape EntityType="Library_ManagementModel.Book_Taken" Width="1.5" PointX="6.5" PointY="4.375" />
-        <AssociationConnector Association="Library_ManagementModel.FK__Book_Take__BookI__49C3F6B7" />
         <AssociationConnector Association="Library_ManagementModel.FK__Book_Take__UserI__48CFD27E" />
+        <EntityTypeShape EntityType="Library_ManagementModel.Book" Width="1.5" PointX="3" PointY="5" />
+        <AssociationConnector Association="Library_ManagementModel.FK__Books__GenreId__5CD6CB2B" />
+        <AssociationConnector Association="Library_ManagementModel.FK__Book_Take__BookI__60A75C0F" />
+        <AssociationConnector Association="Library_ManagementModel.FK__Fine__BookId__6477ECF3" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
