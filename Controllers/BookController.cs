@@ -18,12 +18,6 @@ namespace Library.Controllers
             return View(bookgenre);
         }
 
-        public ActionResult BookGenres1()
-        {
-            List<Book_Genre> bookgenre = libentities.Book_Genre.ToList();
-            return View(bookgenre);
-        }
-
         public ActionResult Index(int? GenreId)
         {
             List<Book> book = libentities.Books.Where(bk => bk.GenreId == GenreId).ToList();
@@ -114,30 +108,33 @@ namespace Library.Controllers
         public ActionResult TakeBook(int? id)
         {
             Book book = libentities.Books.Find(id);
+            TempData["BookID"] = book.BookId;
+            TempData["Bookname"] = book.BookName;
+            TempData["Picture"] = book.Picture;
             return View(book);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult TakeBook(HttpPostedFileBase Picture, Book book, [Bind(Include = "TakeId,UserId,Username,BookId,BookName,TakenDate,ReturnDate")] Book_Taken booktaken)
+        public ActionResult TakeBook( [Bind(Include = "TakeId,UserId,Username,BookId,BookName,TakenDate,ReturnDate")] Book_Taken booktaken )
         {
+            int? userId = TempData["userID"] as int?;
+            int? BookId = TempData["BookID"] as int?;
+            string Bookname = TempData["Bookname"] as string;
+            byte[] Pic = TempData["Picture"] as byte[];
+
             if (ModelState.IsValid)
             {
-                //booktaken.UserId = User.Identity.GetUserId();
-                //booktaken.BookId = book.BookId;
+                booktaken.UserId = userId;
                 booktaken.Username = User.Identity.Name;
-                booktaken.BookName = book.BookName;
+                booktaken.BookId = BookId;
+                booktaken.BookName = Bookname;
                 booktaken.TakenDate = DateTime.Now;
                 booktaken.ReturnDate = DateTime.Now.AddDays(12);
-                //byte[] cover;
-                //    using (var reader = new BinaryReader(Picture.InputStream))
-                //    {
-                //        cover = reader.ReadBytes(Picture.ContentLength);
-                //    }
-                //booktaken.Picture = cover;
+                booktaken.Picture = Pic;
                 libentities.Book_Taken.Add(booktaken);
                 libentities.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index1", "BookTaken");
             }
             return View();
         }

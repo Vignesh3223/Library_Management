@@ -91,3 +91,30 @@ end
 end
 
 alter table Book_Taken add Picture varbinary(max)
+
+alter table Book_Genre add Image varbinary(max)
+
+update Book_Genre set Image = BulkColumn from OpenRowSet(Bulk 'E:\genres\fiction.jpg',Single_Blob) as img where GenreId = 1
+update Book_Genre set Image = BulkColumn from OpenRowSet(Bulk 'E:\genres\novel.jpg',Single_Blob) as img where GenreId = 2
+update Book_Genre set Image = BulkColumn from OpenRowSet(Bulk 'E:\genres\science fiction.jpg',Single_Blob) as img where GenreId = 3
+update Book_Genre set Image = BulkColumn from OpenRowSet(Bulk 'E:\genres\mystery.png',Single_Blob) as img where GenreId = 4
+update Book_Genre set Image = BulkColumn from OpenRowSet(Bulk 'E:\genres\Non-Fiction.png',Single_Blob) as img where GenreId = 5
+update Book_Genre set Image = BulkColumn from OpenRowSet(Bulk 'E:\genres\thriller.png',Single_Blob) as img where GenreId = 6
+update Book_Genre set Image = BulkColumn from OpenRowSet(Bulk 'E:\genres\literary.png',Single_Blob) as img where GenreId = 7
+update Book_Genre set Image = BulkColumn from OpenRowSet(Bulk 'E:\genres\fantasy.png',Single_Blob) as img where GenreId = 8
+update Book_Genre set Image = BulkColumn from OpenRowSet(Bulk 'E:\genres\short.png',Single_Blob) as img where GenreId = 9
+update Book_Genre set Image = BulkColumn from OpenRowSet(Bulk 'E:\genres\biography.png',Single_Blob) as img where GenreId = 10
+update Book_Genre set Image = BulkColumn from OpenRowSet(Bulk 'E:\genres\autobio.png',Single_Blob) as img where GenreId = 11
+update Book_Genre set Image = BulkColumn from OpenRowSet(Bulk 'E:\genres\poetry.png',Single_Blob) as img where GenreId = 12
+update Book_Genre set Image = BulkColumn from OpenRowSet(Bulk 'E:\genres\crime.png',Single_Blob) as img where GenreId = 13
+update Book_Genre set Image = BulkColumn from OpenRowSet(Bulk 'E:\genres\romance.png',Single_Blob) as img where GenreId = 14
+update Book_Genre set Image = BulkColumn from OpenRowSet(Bulk 'E:\genres\essay.png',Single_Blob) as img where GenreId = 15
+update Book_Genre set Image = BulkColumn from OpenRowSet(Bulk 'E:\genres\humor.png',Single_Blob) as img where GenreId = 16
+update Book_Genre set Image = BulkColumn from OpenRowSet(Bulk 'E:\genres\horror.png',Single_Blob) as img where GenreId = 17
+update Book_Genre set Image = BulkColumn from OpenRowSet(Bulk 'E:\genres\adventure.png',Single_Blob) as img where GenreId = 18
+update Book_Genre set Image = BulkColumn from OpenRowSet(Bulk 'E:\genres\contem.png',Single_Blob) as img where GenreId = 19
+update Book_Genre set Image = BulkColumn from OpenRowSet(Bulk 'E:\genres\history.png',Single_Blob) as img where GenreId = 20
+update Book_Genre set Image = BulkColumn from OpenRowSet(Bulk 'E:\genres\cook.png',Single_Blob) as img where GenreId = 21
+update Book_Genre set Image = BulkColumn from OpenRowSet(Bulk 'E:\genres\fairy.png',Single_Blob) as img where GenreId = 22
+update Book_Genre set Image = BulkColumn from OpenRowSet(Bulk 'E:\genres\social.jpg',Single_Blob) as img where GenreId = 23
+update Book_Genre set Image = BulkColumn from OpenRowSet(Bulk 'E:\genres\spirtual.png',Single_Blob) as img where GenreId = 24

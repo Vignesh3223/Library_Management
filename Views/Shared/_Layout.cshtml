@@ -4,10 +4,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Jaffna Library</title>
-    <script src="https://kit.fontawesome.com/d7200c44d8.js" crossorigin="anonymous"></script>
     @Styles.Render("~/Content/css")
-    @Styles.Render("~/Content/bootstrap.min.css")
     @Scripts.Render("~/bundles/modernizr")
+    <script src="https://kit.fontawesome.com/d7200c44d8.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="navbar navbar-fixed-top">
@@ -39,7 +38,7 @@
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
                             <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                            <li>@Html.ActionLink("Books", "BookGenres1", "Book")</li>
+                            <li>@Html.ActionLink("Books", "BookGenres", "Book")</li>
                             <li>@Html.ActionLink("Books Taken", "Index1", "BookTaken")</li>
                             <li>@Html.ActionLink("Logout", "Logout", "User")</li>
                         </ul>

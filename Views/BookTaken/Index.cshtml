@@ -4,12 +4,19 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Taken Books</h2>
+<hr />
 
-<table class="table">
+<table class="table table-bordered">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.User.UserId)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Username)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Book.BookId)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.BookName)
@@ -20,52 +27,52 @@
         <th>
             @Html.DisplayNameFor(model => model.ReturnDate)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Picture)
+        </th>
     </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Username)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TakenDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReturnDate)
-            </td>
-        </tr>
-    }
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.UserId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Username)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Book.BookId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BookName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TakenDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReturnDate)
+        </td>
+        <td>
+            @if (item.Picture != null)
+            {
+                <img src="data:image;base64,@Convert.ToBase64String(item.Picture)" class="img-responsive" alt="Cover">
+            }
+        </td>
+    </tr>
+}
 
 </table>
 
 <style>
-
-    h2 {
-        color: #C70039;
+    body{
+        margin-top:3em;
+    }
+    img{
+        width:50px;
+        height:50px;
     }
 
-    table th, table td {
-        text-align: center;
-    }
-
-    table th {
-        background-color: #9400FF;
-        color: white;
-    }
-
-    table td {
-        color: #0C356A;
-        background-color: #FFF5E0;
-        font-weight: 600;
-        font-size: 16px;
-        font-family: 'Times New Roman';
-    }
-
-    body {
-        margin-top: 3em;
+    table th,td{
+        text-align:center;
     }
 </style>

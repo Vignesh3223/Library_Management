@@ -45,6 +45,7 @@ namespace Library.Controllers
                     return RedirectToAction("Index", "Home");
             }
             ViewBag.Message = message;
+            TempData["userID"] = roleUser.UserId;
             return View(user);
         }
 

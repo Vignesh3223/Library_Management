@@ -1,38 +1,200 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-12">
-            <img src="@Url.Content("~/Content/images/Library.jpg")" class="img-responsive" />
+        <div class="col-md-12 text-center">
+            <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="@Url.Content("~/Content/images/library-1.jpg")" class="d-block" alt="First">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="@Url.Content("~/Content/images/library-2.jpg")" class="d-block" alt="Second">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="@Url.Content("~/Content/images/book.jpg")" class="d-block" alt="Third">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="@Url.Content("~/Content/images/library-3.jpg")" class="d-block" alt="Fourth">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="@Url.Content("~/Content/images/library-4.png")" class="d-block" alt="Fifth">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
         </div>
     </div>
+</div>
+
+@*<div class="container mt-5 mb-5">
     <div class="row">
-        <h1>Library - World of Wisdom</h1>
-        <p id="para">A library is a collection of books, and possibly other materials and media, that is accessible for use 
-        by its members and members of allied institutions. Libraries provide physical (hard copies) or digital access
-        (soft copies) materials, and may be a physical location or a virtual space, or both. A library's collection 
-        normally includes printed materials which can be borrowed, and a reference section of publications which 
-        are not permitted to leave the library and can only be viewed inside the premises. There may be other 
-        physical resources in many formats, such as commercial releases of films, television programmes, 
-        other video recordings, radio, music and audio recordings on DVD, Blu-ray, CD and cassette, 
-        besides access to information, music or other content held on bibliographic databases.</p>
+        <div class="col-md-3 col-sm-6">
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <img src="@Url.Content("~/Content/images/quote-1.png")" alt="Quote" style="width:300px;height:300px;">
+                    </div>
+                    <div class="flip-card-back">
+                        <img src="@Url.Content("~/Content/images/quote-5.jpg")" alt="Quote" style="width:300px;height:300px;">
+                    </div>
+                </div>
+            </div>
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <img src="@Url.Content("~/Content/images/quote-2.png")" alt="Quote" style="width:300px;height:300px;">
+                    </div>
+                    <div class="flip-card-back">
+                        <img src="@Url.Content("~/Content/images/quote-6.jpg")" alt="Quote" style="width:300px;height:300px;">
+                    </div>
+                </div>
+            </div>
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <img src="@Url.Content("~/Content/images/quote-3.png")" alt="Quote" style="width:300px;height:300px;">
+                    </div>
+                    <div class="flip-card-back">
+                        <img src="@Url.Content("~/Content/images/quote-7.jpg")" alt="Quote" style="width:300px;height:300px;">
+                    </div>
+                </div>
+            </div>
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <img src="@Url.Content("~/Content/images/quote-4.png")" alt="Quote" style="width:300px;height:300px;">
+                    </div>
+                    <div class="flip-card-back">
+                        <img src="@Url.Content("~/Content/images/quote-8.jpg")" alt="Quote" style="width:300px;height:300px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>*@
+
+<div class="container mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-4 col-sm-6">
+            <div class="card mb-3" style="max-width: 570px;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="@Url.Content("~/Content/images/rowling.jpg")" class="img-circle" alt="Rowling">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <p class="card-text p1">"If you don’t like to read, you haven’t found the right book." </p>
+                            <p class="card-text text-right p2">– J.K. Rowling</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-3" style="max-width: 570px;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="@Url.Content("~/Content/images/Stephen.jpg")" class="img-circle" alt="Stephen">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <p class="card-text p1">"Books are a uniquely portable magic."</p>
+                            <p class="card-text text-right p2">– Stephen King</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-3" style="max-width: 570px;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="@Url.Content("~/Content/images/Frederick.jpg")" class="img-circle" alt="Rowling">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <p class="card-text p1">"Once you learn to read, you will be forever free." </p>
+                            <p class="card-text text-right p2">– Frederick Douglass</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
 <style>
-    h1 {
-        text-align: center;
-        text-decoration-line: underline;
-        color: #0C356A;
+
+    body {
+        margin-top: 3em;
     }
-    #para {
-        margin:10px 5px 10px 5px;
+
+    .carousel-fade img {
+        width: 100%;
+        height: 500px;
+    }
+
+    .card {
+        border: 2px solid whitesmoke;
+        border-radius: 10px;
+        padding: 5px;
+    }
+
+        .card img {
+            width: 120px;
+            height: 120px;
+        }
+
+    .p1 {
+        font-size: 14px;
+        font-weight: 500;
+        margin-top: 1.5em;
+        margin-left: 1.5em;
+    }
+
+    .p2 {
         font-size: 16px;
-        font-family: 'Times New Roman';
-        font-weight: 600;
-        line-height: 1.2;
-        color: #9400FF;
+        font-weight: 700;
+    }
+
+    .flip-card {
+        background-color: transparent;
+        width: 300px;
+        height: 200px;
+        border: 1px solid #f1f1f1;
+        margin: 10px 0 10px 0;
+    }
+
+    .flip-card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        transition: transform 0.8s;
+        transform-style: preserve-3d;
+    }
+
+    .flip-card:hover .flip-card-inner {
+        transform: rotateY(180deg);
+    }
+
+    .flip-card-front, .flip-card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+
+    .flip-card-back {
+        transform: rotateY(180deg);
     }
 </style>

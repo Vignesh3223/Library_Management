@@ -12,9 +12,17 @@
         <div class="col-md-4 col-sm-6">
             <div class="card text-white">
                 <img src="data:image;base64,@Convert.ToBase64String(item.Image)" class="card" alt="Genre">
-                    <h3 class="card-title">
+                <h3 class="card-title">
+                    @if (User.IsInRole("Librarian"))
+                    {
                         <a href="@Url.Action("Index", "Book", new { GenreId = item.GenreId })">@item.Genre</a>
-                    </h3>
+                    }
+                    @if (User.IsInRole("User"))
+                    {
+                        <a href="@Url.Action("Index1", "Book", new { GenreId = item.GenreId })">@item.Genre</a>
+                    }
+
+                </h3>
             </div>
         </div>
     }
@@ -36,17 +44,18 @@
         padding: 5px;
         border-radius: 10px;
         position: relative;
-       /* border:1px solid #000;*/
     }
 
     .card-title a{
         text-decoration:none;
-        background-color:rgba(255,255,255,0.5);
+        background-color:rgb(178, 0, 255,0.5);
         padding:.2em 1em .2em 1em;
         text-align:center;
         color:ghostwhite;
         position:absolute;
         top:7.3em;
+        left:.45em;
     }
+
 </style>
 
