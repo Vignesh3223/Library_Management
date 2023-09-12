@@ -4,7 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Jaffna Library</title>
-    @Styles.Render("~/Content/css")
+    @*@Styles.Render("~/Content/css")*@
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     @Scripts.Render("~/bundles/modernizr")
     <script src="https://kit.fontawesome.com/d7200c44d8.js" crossorigin="anonymous"></script>
 </head>
@@ -17,7 +18,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <img src="@Url.Content("~/Content/images/logo.png")" style="width:150px;height:80px"/>
+                <img src="@Url.Content("~/Content/images/logo.png")" style="width:150px;height:80px" />
             </div>
             @if (User.Identity.IsAuthenticated)
             {
@@ -66,28 +67,29 @@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+    <script src="~/Scripts/bootstrap.min.js"></script>
     @RenderSection("scripts", required: false)
 
- <style>
+    <style>
 
-  .navbar {
-     background-color: #AED2FF;
-  }
+        .navbar {
+            background-color: #AED2FF;
+        }
 
- .navbar-nav li {
-   font-size: 16px;
-   margin-top:1em;
-   margin-left:.5em;
-   font-weight: bold
- }
+        .navbar-nav li {
+            font-size: 16px;
+            margin-top: 1em;
+            margin-left: .5em;
+            font-weight: bold;
+            color: ghostwhite;
+        }
 
- #footer{
-     font-weight:700;
-     font-size:14px;
- }
-
-</style>
+        #footer {
+            font-weight: 700;
+            font-size: 14px;
+        }
+    </style>
 
 </body>
 
