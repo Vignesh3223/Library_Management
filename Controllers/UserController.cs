@@ -34,6 +34,7 @@ namespace Library.Controllers
                     message = "Account has not been activated.";
                     break;
                 default:
+                    Session["userID"] = roleUser.UserId;
                     FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, user.Email, DateTime.Now, DateTime.Now.AddMinutes(30), false, roleUser.Roles, FormsAuthentication.FormsCookiePath);
                     string hash = FormsAuthentication.Encrypt(ticket);
                     HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, hash);
@@ -45,7 +46,6 @@ namespace Library.Controllers
                     return RedirectToAction("Index", "Home");
             }
             ViewBag.Message = message;
-            TempData["userID"] = roleUser.UserId;
             return View(user);
         }
 

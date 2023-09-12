@@ -111,6 +111,7 @@ namespace Library.Controllers
             TempData["BookID"] = book.BookId;
             TempData["Bookname"] = book.BookName;
             TempData["Picture"] = book.Picture;
+            TempData["userid"] = Session["userID"];
             return View(book);
         }
 
@@ -118,7 +119,7 @@ namespace Library.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult TakeBook( [Bind(Include = "TakeId,UserId,Username,BookId,BookName,TakenDate,ReturnDate")] Book_Taken booktaken )
         {
-            int? userId = TempData["userID"] as int?;
+            int? userId = TempData["userid"] as int?;
             int? BookId = TempData["BookID"] as int?;
             string Bookname = TempData["Bookname"] as string;
             byte[] Pic = TempData["Picture"] as byte[];

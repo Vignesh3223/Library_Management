@@ -4,7 +4,7 @@
     ViewBag.Title = "BookGenres";
 }
 
-<h2>BookGenres</h2>
+<h2>Pick your Genre</h2>
 <hr />
 <div class="row">
     @foreach (Library.Models.Book_Genre item in Model)
@@ -32,6 +32,10 @@
 
     body{
         margin-top:3em;
+    }
+
+    h2 {
+        color: #C70039;
     }
 
     img {
