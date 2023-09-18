@@ -1,0 +1,94 @@
+﻿@model IEnumerable<Library.Models.Fine>
+
+@{
+    ViewBag.Title = "Index1";
+}
+
+<h2>Penalty Dues</h2>
+<hr />
+
+@{
+    int? userId = Session["userID"] as int?;
+}
+@if (Model.Any(item => item.User.UserId == userId))
+{
+    <table class="table table-bordered">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BookName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExceededDays)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FineAmount)
+            </th>
+            <th>
+               @Html.DisplayNameFor(model => model.IsPaid)
+            </th>
+
+            <th>Action</th>
+        </tr>
+        @using (Html.BeginForm("CreateOrder", "Fine", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            foreach (var item in Model)
+            {
+                if (item.UserId == userId)
+                {
+                <div class="form-group" hidden>
+                    <input type="number" name="FineAmount" id="FineAmount" value="@item.FineAmount" />
+                    <input type="text" name="Username" id="FineAmount" value="@item.Username" />
+                    <input type="text" name="Email" id="Email" value="@item.Email" />
+                    <input type="number" name="FineId" id="Fineid" value="@item.FineId" />
+                </div>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BookName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ExceededDays)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FineAmount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsPaid)
+                    </td>
+                    @if (item.IsPaid == false)
+                    {
+                        <td>
+                            <button type="submit" class="btn btn-primary">Pay</button>
+                        </td>
+                    }
+                </tr>
+                }
+            }
+        }
+
+    </table>
+}
+
+else
+{
+    <div class="text-center">
+        <h1>You don't have any Pending Dues...</h1>
+        <a href="@Url.Action("BookGenres", "Book")" class="btn btn-info">Continue</a>
+    </div>
+}
+
+<style>
+
+    body {
+        margin-top: 3em;
+    }
+
+    h2 {
+        color: #C70039;
+    }
+
+    table th, table td {
+        text-align: center;
+    }
+</style>

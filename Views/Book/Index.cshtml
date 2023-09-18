@@ -24,6 +24,7 @@
                     <li class="list-group-item"><i class="fa-solid fa-hashtag" style="color: #000000;"></i> @Html.DisplayFor(modelItem => item.BookId)</li>
                     <li class="list-group-item"><i class="fa-solid fa-user-pen" style="color: #000000;"></i> @Html.DisplayFor(modelItem => item.Author)</li>
                     <li class="list-group-item"><i class="fa-solid fa-book" style="color: #000000;"></i> @Html.DisplayFor(modelItem => item.Book_Genre.Genre)</li>
+                    <li class="list-group-item"> @Html.DisplayFor(modelItem => item.Available)</li>
                 </ul>
                 <div class="card-body">
                     <a href="@Url.Action("Edit", new { id = item.BookId })" class="btn btn-success">

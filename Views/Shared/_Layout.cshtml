@@ -3,9 +3,10 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Jaffna Library</title>
+    <title>@ViewBag.Title Public Library</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/toastr.css" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/d7200c44d8.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -17,7 +18,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <img src="@Url.Content("~/Content/images/logo.png")" style="width:150px;height:80px" />
+                <img src="@Url.Content("~/Content/images/logo.gif")" style="width:100px;height:80px" />
             </div>
             @if (User.Identity.IsAuthenticated)
             {
@@ -29,6 +30,10 @@
                             <li>@Html.ActionLink("Users", "Index", "User")</li>
                             <li>@Html.ActionLink("Books", "BookGenres", "Book")</li>
                             <li>@Html.ActionLink("Books Taken", "Index", "BookTaken")</li>
+                            <li>@Html.ActionLink("Penalty", "Index", "Fine")</li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li style="padding-top:.9em"><i class="fa-solid fa-circle-user" style="color: navy;"></i> @Session["name"]</li>
                             <li>@Html.ActionLink("Logout", "Logout", "User")</li>
                         </ul>
                     </div>
@@ -40,6 +45,10 @@
                             <li>@Html.ActionLink("Home", "Index", "Home")</li>
                             <li>@Html.ActionLink("Books", "BookGenres", "Book")</li>
                             <li>@Html.ActionLink("Books Taken", "Index1", "BookTaken")</li>
+                            <li>@Html.ActionLink("Penalty", "Index1", "Fine")</li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li style="padding-top:.9em"><i class="fa-solid fa-circle-user" style="color: navy;"></i> @Session["name"]</li>
                             <li>@Html.ActionLink("Logout", "Logout", "User")</li>
                         </ul>
                     </div>
@@ -67,7 +76,19 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/toastr.js"></script>
     @RenderSection("scripts", required: false)
+
+    @section Scripts{
+        <script type="text/javascript">
+            $(function () {
+                $("#CreateToast").click(function () {
+                    alert("Created Successfully")
+                    //toastr.Success("Created Successfully", "Toastr");
+                });
+            })
+        </script>
+    }
 
     <style>
 
@@ -80,7 +101,7 @@
             margin-top: 1em;
             margin-left: .5em;
             font-weight: bold;
-            color: ghostwhite;
+            color: navy;
         }
 
         #footer {
@@ -90,6 +111,4 @@
     </style>
 
 </body>
-
-
 </html>

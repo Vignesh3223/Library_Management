@@ -26,6 +26,7 @@ namespace Library.Models
         public string Author { get; set; }
         public Nullable<int> GenreId { get; set; }
         public byte[] Picture { get; set; }
+        public Nullable<int> Available { get; set; }
     
         public virtual Book_Genre Book_Genre { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -37,7 +37,7 @@ namespace Library.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(HttpPostedFileBase Picture, [Bind(Include = "BookName,Author,GenreId")] Book book)
+        public ActionResult Create(HttpPostedFileBase Picture, [Bind(Include = "BookName,Author,GenreId,Available")] Book book)
         {
             if (ModelState.IsValid)
             {
@@ -72,7 +72,7 @@ namespace Library.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(HttpPostedFileBase Picture, [Bind(Include = "BookId,BookName,Author,GenreId")] Book book)
+        public ActionResult Edit(HttpPostedFileBase Picture, [Bind(Include = "BookId,BookName,Author,GenreId,Available")] Book book)
         {
             if (ModelState.IsValid)
             {
@@ -117,9 +117,11 @@ namespace Library.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult TakeBook( [Bind(Include = "TakeId,UserId,Username,BookId,BookName,TakenDate,ReturnDate")] Book_Taken booktaken )
+        public ActionResult TakeBook( [Bind(Include = "TakeId,UserId,Username,Email,BookId,BookName,TakenDate,ReturnDate")] Book_Taken booktaken )
         {
             int? userId = TempData["userid"] as int?;
+            string username = Session["name"] as string;
+            string email = Session["email"] as string;
             int? BookId = TempData["BookID"] as int?;
             string Bookname = TempData["Bookname"] as string;
             byte[] Pic = TempData["Picture"] as byte[];
@@ -127,11 +129,12 @@ namespace Library.Controllers
             if (ModelState.IsValid)
             {
                 booktaken.UserId = userId;
-                booktaken.Username = User.Identity.Name;
+                booktaken.Username = username;
+                booktaken.Email = email;
                 booktaken.BookId = BookId;
                 booktaken.BookName = Bookname;
                 booktaken.TakenDate = DateTime.Now;
-                booktaken.ReturnDate = DateTime.Now.AddDays(12);
+                booktaken.ReturnDate = DateTime.Now.AddDays(14);
                 booktaken.Picture = Pic;
                 libentities.Book_Taken.Add(booktaken);
                 libentities.SaveChanges();

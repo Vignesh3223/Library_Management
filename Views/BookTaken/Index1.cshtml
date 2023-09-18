@@ -9,22 +9,41 @@
 <div>
     <hr />
     <div class="row">
-        @foreach (var item in Model)
+        @{
+            int? userId = Session["userID"] as int?;
+        }
+        @if (Model.Any(item => item.User.UserId == userId))
         {
-            <div class="col-md-4 col-sm-6">
-                <div class="card text-center" style="width: 26rem;">
-                    <img src="data:image;base64,@Convert.ToBase64String(item.Picture)" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title"> @Html.DisplayFor(modelItem => item.BookName)</h5>
+            foreach (var item in Model)
+            {
+                if (item.UserId == userId)
+                {
+                    <div class="col-md-4 col-sm-6">
+                        <div class="card text-center" style="width: 26rem;">
+                            <img src="data:image;base64,@Convert.ToBase64String(item.Picture)" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title"> @Html.DisplayFor(modelItem => item.BookName)</h5>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">@Html.DisplayFor(modelItem => item.TakenDate)</li>
+                                <li class="list-group-item">@Html.DisplayFor(modelItem => item.ReturnDate)</li>
+                            </ul>
+                            @if (item.IsReturned == false)
+                            {
+                                <div class="card-body text-center">
+                                    @Html.ActionLink("Return Book", "ReturnBook", new { id = item.TakeId }, new { @class = "btn btn-primary" })
+                                </div>
+                            }
+                        </div>
                     </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">@Html.DisplayFor(modelItem => item.TakenDate)</li>
-                        <li class="list-group-item">@Html.DisplayFor(modelItem => item.ReturnDate)</li>
-                    </ul>
-                    <div class="card-body text-center">
-                        @Html.ActionLink("Return Book", "ReturnBook", new { id = item.TakeId }, new { @class = "btn btn-primary" })
-                    </div>
-                </div>
+                }
+            }
+        }
+        else
+        {
+            <div class="text-center">
+                <h1>You don't have any books</h1>
+                <a href="@Url.Action("BookGenres", "Book")" class="btn btn-info">Take Book</a>
             </div>
         }
     </div>

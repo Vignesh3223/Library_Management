@@ -1,0 +1,54 @@
+﻿@model Library.Controllers.FineController.OrderModel
+
+<button id="paybtn" hidden>Pay</button>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+    var options = {
+        "key": "@Html.DisplayFor(model => model.razorpayKey)",
+        "amount": "@Html.DisplayFor(model => model.amount)",
+        "currency": "@Html.DisplayFor(model => model.currency)",
+        "name": "@Html.DisplayFor(model => model.name)",
+        "email": "@Html.DisplayFor(model => model.email)",
+        "order_id": "@Html.DisplayFor(model => model.orderId)",
+        "handler": function (response) {
+            document.getElementById('rzp_paymentid').value = response.razorpay_payment_id;
+            document.getElementById('rzp_orderid').value = response.razorpay_order_id;
+
+              document.getElementById('rzp-paymentresponse').click();
+    },
+    "prefill": {
+        "name": "@Html.DisplayFor(model => model.name)",
+        "email": "@Html.DisplayFor(model => model.email)"
+    },
+    "notes": {
+           "amount": "@Html.DisplayFor(model => model.amount)"
+    },
+    "theme": {
+        "color": "#F37254"
+    }
+};
+    var rzp1 = new Razorpay(options);
+
+    window.onload = function(){
+        document.getElementById('paybtn').click();
+    };
+
+    document.getElementById('paybtn').onclick = function(e){
+        rzp1.open();
+        e.preventDefault();
+    }
+</script>
+@using (Html.BeginForm("Payment", "Fine"))
+{
+    @Html.AntiForgeryToken()
+    <input name="fineid" id="fineid" value="@Model.fineId" />
+    @Html.Hidden("rzp_paymentid")
+    @Html.Hidden("rzp_orderid")
+    <button type="submit" id="rzp-paymentresponse" class="btn btn-primary" hidden>Complete</button>
+}
+
+<style>
+    body{
+        margin-top:4em;
+    }
+</style>

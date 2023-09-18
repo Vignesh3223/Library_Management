@@ -60,6 +60,7 @@ ReturnDate datetime
 create table Fine
 (
 FineId int primary key identity(1,1),
+TakeId int references Book_Taken(TakeId),
 UserId int references Users(UserId),
 Username varchar(25),
 BookId int references Books(BookId),
@@ -118,3 +119,40 @@ update Book_Genre set Image = BulkColumn from OpenRowSet(Bulk 'E:\genres\cook.pn
 update Book_Genre set Image = BulkColumn from OpenRowSet(Bulk 'E:\genres\fairy.png',Single_Blob) as img where GenreId = 22
 update Book_Genre set Image = BulkColumn from OpenRowSet(Bulk 'E:\genres\social.jpg',Single_Blob) as img where GenreId = 23
 update Book_Genre set Image = BulkColumn from OpenRowSet(Bulk 'E:\genres\spirtual.png',Single_Blob) as img where GenreId = 24
+
+alter table Fine drop column Status
+alter table Fine add IsPaid bit default 0;
+
+
+select*from Books
+select* from Book_Taken
+Select * from Fine
+
+alter PROCEDURE [dbo].[GenerateFine] 
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE Fine
+    SET ExceededDays = DATEDIFF(DAY, bt.ReturnDate, GETDATE()),
+        FineAmount = DATEDIFF(DAY, bt.ReturnDate, GETDATE()) * 5
+    FROM Fine AS f
+    JOIN Book_Taken AS bt ON f.TakeId = bt.TakeId
+    WHERE DATEDIFF(DAY, bt.ReturnDate, GETDATE()) > 0;
+
+    INSERT INTO Fine (TakeId, UserId, Username, BookId, BookName, Email, ExceededDays, FineAmount)
+    SELECT bt.TakeId, bt.UserId, bt.Username, bt.BookId, bt.BookName, bt.Email,
+           DATEDIFF(DAY, bt.ReturnDate, GETDATE()) AS ExceededDays,
+           DATEDIFF(DAY, bt.ReturnDate, GETDATE()) * 5 AS FineAmount
+    FROM Book_Taken AS bt
+    WHERE DATEDIFF(DAY, bt.ReturnDate, GETDATE()) > 0 AND NOT EXISTS (
+        SELECT 1
+        FROM Fine AS f
+        WHERE f.UserId = bt.UserId
+          AND f.BookId = bt.BookId
+      );
+END;
+
+
+alter table Book_Taken add IsReturned bit default 0;
+
+alter table Books add Available int

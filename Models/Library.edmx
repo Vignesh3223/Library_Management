@@ -25,6 +25,8 @@
           <Property Name="TakenDate" Type="datetime" />
           <Property Name="ReturnDate" Type="datetime" />
           <Property Name="Picture" Type="varbinary(max)" />
+          <Property Name="Email" Type="varchar" MaxLength="35" />
+          <Property Name="IsReturned" Type="bit" />
         </EntityType>
         <EntityType Name="Books">
           <Key>
@@ -35,18 +37,22 @@
           <Property Name="Author" Type="varchar" MaxLength="35" />
           <Property Name="GenreId" Type="int" />
           <Property Name="Picture" Type="varbinary(max)" />
+          <Property Name="Available" Type="int" />
         </EntityType>
         <EntityType Name="Fine">
           <Key>
             <PropertyRef Name="FineId" />
           </Key>
           <Property Name="FineId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TakeId" Type="int" />
           <Property Name="UserId" Type="int" />
           <Property Name="Username" Type="varchar" MaxLength="25" />
           <Property Name="BookId" Type="int" />
           <Property Name="BookName" Type="varchar" MaxLength="40" />
           <Property Name="ExceededDays" Type="int" />
           <Property Name="FineAmount" Type="int" />
+          <Property Name="IsPaid" Type="bit" />
+          <Property Name="Email" Type="varchar" MaxLength="35" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -103,7 +109,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Fine__BookId__6477ECF3">
+        <Association Name="FK__Fine__BookId__71D1E811">
           <End Role="Books" Type="Self.Books" Multiplicity="0..1" />
           <End Role="Fine" Type="Self.Fine" Multiplicity="*" />
           <ReferentialConstraint>
@@ -115,7 +121,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Fine__UserId__6383C8BA">
+        <Association Name="FK__Fine__TakeId__6FE99F9F">
+          <End Role="Book_Taken" Type="Self.Book_Taken" Multiplicity="0..1" />
+          <End Role="Fine" Type="Self.Fine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book_Taken">
+              <PropertyRef Name="TakeId" />
+            </Principal>
+            <Dependent Role="Fine">
+              <PropertyRef Name="TakeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Fine__UserId__70DDC3D8">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="Fine" Type="Self.Fine" Multiplicity="*" />
           <ReferentialConstraint>
@@ -139,6 +157,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="GenerateFine" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="Validate_User" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Email" Type="nvarchar" Mode="In" />
           <Parameter Name="Password" Type="nvarchar" Mode="In" />
@@ -162,11 +181,15 @@
             <End Role="Book_Genre" EntitySet="Book_Genre" />
             <End Role="Books" EntitySet="Books" />
           </AssociationSet>
-          <AssociationSet Name="FK__Fine__BookId__6477ECF3" Association="Self.FK__Fine__BookId__6477ECF3">
+          <AssociationSet Name="FK__Fine__BookId__71D1E811" Association="Self.FK__Fine__BookId__71D1E811">
             <End Role="Books" EntitySet="Books" />
             <End Role="Fine" EntitySet="Fine" />
           </AssociationSet>
-          <AssociationSet Name="FK__Fine__UserId__6383C8BA" Association="Self.FK__Fine__UserId__6383C8BA">
+          <AssociationSet Name="FK__Fine__TakeId__6FE99F9F" Association="Self.FK__Fine__TakeId__6FE99F9F">
+            <End Role="Book_Taken" EntitySet="Book_Taken" />
+            <End Role="Fine" EntitySet="Fine" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Fine__UserId__70DDC3D8" Association="Self.FK__Fine__UserId__70DDC3D8">
             <End Role="Users" EntitySet="Users" />
             <End Role="Fine" EntitySet="Fine" />
           </AssociationSet>
@@ -188,20 +211,6 @@
           <NavigationProperty Name="Books" Relationship="Library_ManagementModel.FK__Books__GenreId__5CD6CB2B" FromRole="Book_Genre" ToRole="Book" />
           <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <EntityType Name="Fine">
-          <Key>
-            <PropertyRef Name="FineId" />
-          </Key>
-          <Property Name="FineId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="Int32" />
-          <Property Name="Username" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="BookId" Type="Int32" />
-          <Property Name="BookName" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
-          <Property Name="ExceededDays" Type="Int32" />
-          <Property Name="FineAmount" Type="Int32" />
-          <NavigationProperty Name="User" Relationship="Self.FK__Fine__UserId__440B1D61" FromRole="Fine" ToRole="Users" />
-          <NavigationProperty Name="Book" Relationship="Library_ManagementModel.FK__Fine__BookId__6477ECF3" FromRole="Fine" ToRole="Book" />
-        </EntityType>
         <EntityType Name="Role">
           <Key>
             <PropertyRef Name="RoleId" />
@@ -220,23 +229,11 @@
           <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="LastLoginDate" Type="DateTime" Precision="3" />
           <Property Name="RoleId" Type="Int32" />
-          <NavigationProperty Name="Fines" Relationship="Self.FK__Fine__UserId__440B1D61" FromRole="Users" ToRole="Fine" />
           <NavigationProperty Name="Role" Relationship="Self.FK__Users__RoleId__38996AB5" FromRole="Users" ToRole="Roles" />
           <NavigationProperty Name="Book_Taken" Relationship="Library_ManagementModel.FK__Book_Take__UserI__48CFD27E" FromRole="User" ToRole="Book_Taken" />
           <Property Name="Avatar" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Fines" Relationship="Library_ManagementModel.FK__Fine__UserId__70DDC3D8" FromRole="User" ToRole="Fine" />
         </EntityType>
-        <Association Name="FK__Fine__UserId__440B1D61">
-          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
-          <End Role="Fine" Type="Self.Fine" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Fine">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Users__RoleId__38996AB5">
           <End Role="Roles" Type="Self.Role" Multiplicity="0..1" />
           <End Role="Users" Type="Self.User" Multiplicity="*" />
@@ -251,13 +248,8 @@
         </Association>
         <EntityContainer Name="Library_ManagementEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Book_Genre" EntityType="Self.Book_Genre" />
-          <EntitySet Name="Fines" EntityType="Self.Fine" />
           <EntitySet Name="Roles" EntityType="Self.Role" />
           <EntitySet Name="Users" EntityType="Self.User" />
-          <AssociationSet Name="FK__Fine__UserId__440B1D61" Association="Self.FK__Fine__UserId__440B1D61">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Fine" EntitySet="Fines" />
-          </AssociationSet>
           <AssociationSet Name="FK__Users__RoleId__38996AB5" Association="Self.FK__Users__RoleId__38996AB5">
             <End Role="Roles" EntitySet="Roles" />
             <End Role="Users" EntitySet="Users" />
@@ -280,8 +272,19 @@
             <End Role="Book" EntitySet="Books" />
             <End Role="Book_Taken" EntitySet="Book_Taken" />
           </AssociationSet>
-          <AssociationSet Name="FK__Fine__BookId__6477ECF3" Association="Library_ManagementModel.FK__Fine__BookId__6477ECF3">
+          <FunctionImport Name="GenerateFine" >
+          </FunctionImport>
+          <EntitySet Name="Fines" EntityType="Library_ManagementModel.Fine" />
+          <AssociationSet Name="FK__Fine__TakeId__6FE99F9F" Association="Library_ManagementModel.FK__Fine__TakeId__6FE99F9F">
+            <End Role="Book_Taken" EntitySet="Book_Taken" />
+            <End Role="Fine" EntitySet="Fines" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Fine__BookId__71D1E811" Association="Library_ManagementModel.FK__Fine__BookId__71D1E811">
             <End Role="Book" EntitySet="Books" />
+            <End Role="Fine" EntitySet="Fines" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Fine__UserId__70DDC3D8" Association="Library_ManagementModel.FK__Fine__UserId__70DDC3D8">
+            <End Role="User" EntitySet="Users" />
             <End Role="Fine" EntitySet="Fines" />
           </AssociationSet>
         </EntityContainer>
@@ -303,6 +306,9 @@
           <NavigationProperty Name="User" Relationship="Library_ManagementModel.FK__Book_Take__UserI__48CFD27E" FromRole="Book_Taken" ToRole="User" />
           <NavigationProperty Name="Book" Relationship="Library_ManagementModel.FK__Book_Take__BookI__60A75C0F" FromRole="Book_Taken" ToRole="Book" />
           <Property Name="Picture" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Fines" Relationship="Library_ManagementModel.FK__Fine__TakeId__6FE99F9F" FromRole="Book_Taken" ToRole="Fine" />
+          <Property Name="Email" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
+          <Property Name="IsReturned" Type="Boolean" />
         </EntityType>
         <Association Name="FK__Book_Take__UserI__48CFD27E">
           <End Type="Library_ManagementModel.User" Role="User" Multiplicity="0..1" />
@@ -327,7 +333,8 @@
           <Property Name="Picture" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="Book_Genre" Relationship="Library_ManagementModel.FK__Books__GenreId__5CD6CB2B" FromRole="Book" ToRole="Book_Genre" />
           <NavigationProperty Name="Book_Taken" Relationship="Library_ManagementModel.FK__Book_Take__BookI__60A75C0F" FromRole="Book" ToRole="Book_Taken" />
-          <NavigationProperty Name="Fines" Relationship="Library_ManagementModel.FK__Fine__BookId__6477ECF3" FromRole="Book" ToRole="Fine" />
+          <NavigationProperty Name="Fines" Relationship="Library_ManagementModel.FK__Fine__BookId__71D1E811" FromRole="Book" ToRole="Fine" />
+          <Property Name="Available" Type="Int32" />
         </EntityType>
         <Association Name="FK__Books__GenreId__5CD6CB2B">
           <End Type="Library_ManagementModel.Book_Genre" Role="Book_Genre" Multiplicity="0..1" />
@@ -353,7 +360,37 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Fine__BookId__6477ECF3">
+        <EntityType Name="Fine">
+          <Key>
+            <PropertyRef Name="FineId" />
+          </Key>
+          <Property Name="FineId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TakeId" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="Username" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="BookId" Type="Int32" />
+          <Property Name="BookName" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="ExceededDays" Type="Int32" />
+          <Property Name="FineAmount" Type="Int32" />
+          <Property Name="IsPaid" Type="Boolean" />
+          <NavigationProperty Name="Book_Taken" Relationship="Library_ManagementModel.FK__Fine__TakeId__6FE99F9F" FromRole="Fine" ToRole="Book_Taken" />
+          <NavigationProperty Name="Book" Relationship="Library_ManagementModel.FK__Fine__BookId__71D1E811" FromRole="Fine" ToRole="Book" />
+          <NavigationProperty Name="User" Relationship="Library_ManagementModel.FK__Fine__UserId__70DDC3D8" FromRole="Fine" ToRole="User" />
+          <Property Name="Email" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK__Fine__TakeId__6FE99F9F">
+          <End Type="Library_ManagementModel.Book_Taken" Role="Book_Taken" Multiplicity="0..1" />
+          <End Type="Library_ManagementModel.Fine" Role="Fine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book_Taken">
+              <PropertyRef Name="TakeId" />
+            </Principal>
+            <Dependent Role="Fine">
+              <PropertyRef Name="TakeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Fine__BookId__71D1E811">
           <End Type="Library_ManagementModel.Book" Role="Book" Multiplicity="0..1" />
           <End Type="Library_ManagementModel.Fine" Role="Fine" Multiplicity="*" />
           <ReferentialConstraint>
@@ -365,7 +402,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <Association Name="FK__Fine__UserId__70DDC3D8">
+          <End Type="Library_ManagementModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="Library_ManagementModel.Fine" Role="Fine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Fine">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -377,19 +426,6 @@
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="GenreId" ColumnName="GenreId" />
                 <ScalarProperty Name="Genre" ColumnName="Genre" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Fines">
-            <EntityTypeMapping TypeName="Library_ManagementModel.Fine">
-              <MappingFragment StoreEntitySet="Fine">
-                <ScalarProperty Name="FineId" ColumnName="FineId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="BookId" ColumnName="BookId" />
-                <ScalarProperty Name="BookName" ColumnName="BookName" />
-                <ScalarProperty Name="ExceededDays" ColumnName="ExceededDays" />
-                <ScalarProperty Name="FineAmount" ColumnName="FineAmount" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -425,6 +461,8 @@
           <EntitySetMapping Name="Book_Taken">
             <EntityTypeMapping TypeName="Library_ManagementModel.Book_Taken">
               <MappingFragment StoreEntitySet="Book_Taken">
+                <ScalarProperty Name="IsReturned" ColumnName="IsReturned" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Picture" ColumnName="Picture" />
                 <ScalarProperty Name="ReturnDate" ColumnName="ReturnDate" />
                 <ScalarProperty Name="TakenDate" ColumnName="TakenDate" />
@@ -439,11 +477,29 @@
           <EntitySetMapping Name="Books">
             <EntityTypeMapping TypeName="Library_ManagementModel.Book">
               <MappingFragment StoreEntitySet="Books">
+                <ScalarProperty Name="Available" ColumnName="Available" />
                 <ScalarProperty Name="Picture" ColumnName="Picture" />
                 <ScalarProperty Name="GenreId" ColumnName="GenreId" />
                 <ScalarProperty Name="Author" ColumnName="Author" />
                 <ScalarProperty Name="BookName" ColumnName="BookName" />
                 <ScalarProperty Name="BookId" ColumnName="BookId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GenerateFine" FunctionName="Library_ManagementModel.Store.GenerateFine" />
+          <EntitySetMapping Name="Fines">
+            <EntityTypeMapping TypeName="Library_ManagementModel.Fine">
+              <MappingFragment StoreEntitySet="Fine">
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IsPaid" ColumnName="IsPaid" />
+                <ScalarProperty Name="FineAmount" ColumnName="FineAmount" />
+                <ScalarProperty Name="ExceededDays" ColumnName="ExceededDays" />
+                <ScalarProperty Name="BookName" ColumnName="BookName" />
+                <ScalarProperty Name="BookId" ColumnName="BookId" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="TakeId" ColumnName="TakeId" />
+                <ScalarProperty Name="FineId" ColumnName="FineId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

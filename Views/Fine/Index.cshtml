@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Library.Models.Fine>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Penalty</h2>
+<hr />
+
+<table class="table table-bordered">
+    <tr>
+          <th>
+            @Html.DisplayNameFor(model => model.User.UserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Username)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BookName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExceededDays)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FineAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsPaid)
+        </th>
+        <th>Action</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.UserId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Username)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BookName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExceededDays)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FineAmount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsPaid)
+        </td>
+        <td>
+            <a href="@Url.Action("Details", new { id = item.FineId })">
+                <i class="fa-solid fa-circle-info fa-lg" style="color: #5bc0de;"></i>
+            </a> |
+            <a href="@Url.Action("Delete", new { id = item.FineId })">
+                <i class="fa-solid fa-trash fa-lg" style="color: #d9534f;"></i>
+            </a>
+        </td>
+    </tr>
+}
+
+</table>
+
+<style>
+    body {
+        margin-top: 3em;
+    }
+
+    h2 {
+        color: #C70039;
+    }
+
+    table th, table td{
+        text-align:center;
+    }
+</style>

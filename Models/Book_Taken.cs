@@ -14,6 +14,12 @@ namespace Library.Models
     
     public partial class Book_Taken
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Book_Taken()
+        {
+            this.Fines = new HashSet<Fine>();
+        }
+    
         public int TakeId { get; set; }
         public Nullable<int> UserId { get; set; }
         public string Username { get; set; }
@@ -22,8 +28,12 @@ namespace Library.Models
         public Nullable<System.DateTime> TakenDate { get; set; }
         public Nullable<System.DateTime> ReturnDate { get; set; }
         public byte[] Picture { get; set; }
+        public string Email { get; set; }
+        public Nullable<bool> IsReturned { get; set; }
     
         public virtual User User { get; set; }
         public virtual Book Book { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Fine> Fines { get; set; }
     }
 }

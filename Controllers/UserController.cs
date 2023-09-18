@@ -35,6 +35,15 @@ namespace Library.Controllers
                     break;
                 default:
                     Session["userID"] = roleUser.UserId;
+                    List<User> userData = libentities.Users.ToList();
+                    foreach (User users in userData)
+                    {
+                        if (roleUser.UserId == users.UserId)
+                        {
+                            Session["name"] = users.Username;
+                            Session["email"] = users.Email;
+                        }
+                    }
                     FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, user.Email, DateTime.Now, DateTime.Now.AddMinutes(30), false, roleUser.Roles, FormsAuthentication.FormsCookiePath);
                     string hash = FormsAuthentication.Encrypt(ticket);
                     HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, hash);
@@ -43,6 +52,7 @@ namespace Library.Controllers
                         cookie.Expires = ticket.Expiration;
                     }
                     Response.Cookies.Add(cookie);
+                    libentities.GenerateFine();
                     return RedirectToAction("Index", "Home");
             }
             ViewBag.Message = message;

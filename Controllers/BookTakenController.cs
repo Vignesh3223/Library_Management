@@ -36,7 +36,7 @@ namespace Library.Controllers
         public ActionResult ReturnBookConfirmed(int id)
         {
             Book_Taken booktaken = libentities.Book_Taken.Find(id);
-            libentities.Book_Taken.Remove(booktaken);
+            booktaken.IsReturned = true;
             libentities.SaveChanges();
             return RedirectToAction("Index1");
         }

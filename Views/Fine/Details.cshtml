@@ -1,0 +1,99 @@
+﻿@model Library.Models.Fine
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Penalty Details</h2>
+
+<div>
+    <hr />
+    <table class="table table-bordered" style="width:60%">
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.User.UserId)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.User.UserId)
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Username)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.Username)
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.BookName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.BookName)
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.ExceededDays)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.ExceededDays)
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.FineAmount)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.FineAmount)
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.IsPaid)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.IsPaid)
+            </td>
+        </tr>
+    </table>
+</div>
+
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+<style>
+    body {
+        margin-top: 3em;
+    }
+
+    h2 {
+        color: #C70039;
+    }
+
+    table{
+        margin:0 auto 0 auto;
+        text-align:center;
+        font-size:16px;
+        font-weight:700;
+    }
+     td:nth-child(odd){
+         color:navy;
+
+     }
+     td:nth-child(even){
+         color:firebrick;
+     }
+</style>

@@ -28,11 +28,11 @@ namespace Library.Models
         }
     
         public virtual DbSet<Book_Genre> Book_Genre { get; set; }
-        public virtual DbSet<Fine> Fines { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Book_Taken> Book_Taken { get; set; }
         public virtual DbSet<Book> Books { get; set; }
+        public virtual DbSet<Fine> Fines { get; set; }
     
         public virtual ObjectResult<Validate_User_Result> Validate_User(string email, string password)
         {
@@ -45,6 +45,11 @@ namespace Library.Models
                 new ObjectParameter("Password", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Validate_User_Result>("Validate_User", emailParameter, passwordParameter);
+        }
+    
+        public virtual int GenerateFine()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("GenerateFine");
         }
     }
 }
