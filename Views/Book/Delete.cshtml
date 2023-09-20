@@ -23,7 +23,7 @@
             @using (Html.BeginForm())
             {
                 @Html.AntiForgeryToken()
-                <button type="submit" class="btn btn-danger">Delete <i class="fa-solid fa-trash" style="color: #ffffff;"></i></button>
+                <button type="submit" class="btn btn-danger" id="DeleteBook">Delete <i class="fa-solid fa-trash" style="color: #ffffff;"></i></button>
             }
         </div>
     </div>
@@ -33,6 +33,16 @@
         </a>
     </div>
 </div>
+
+@section Scripts{
+    <script type="text/javascript">
+            $(function () {
+                $("#DeleteBook").click(function () {
+                    toastr.success("Book Removed Successfully", "Delete", { Timeout:4000 });
+                });
+            })
+    </script>
+}
 
 <style>
 
@@ -45,7 +55,7 @@
         height: 200px;
     }
 
-    h2,h3 {
+    h2, h3 {
         color: #C70039;
     }
 

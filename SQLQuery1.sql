@@ -144,11 +144,11 @@ BEGIN
            DATEDIFF(DAY, bt.ReturnDate, GETDATE()) AS ExceededDays,
            DATEDIFF(DAY, bt.ReturnDate, GETDATE()) * 5 AS FineAmount
     FROM Book_Taken AS bt
-    WHERE DATEDIFF(DAY, bt.ReturnDate, GETDATE()) > 0 AND NOT EXISTS (
+    WHERE DATEDIFF(DAY, bt.ReturnDate, GETDATE()) > 0 AND bt.IsReturned = 0 AND NOT EXISTS (
         SELECT 1
         FROM Fine AS f
         WHERE f.UserId = bt.UserId
-          AND f.BookId = bt.BookId
+          AND f.BookId = bt.BookId 
       );
 END;
 
@@ -156,3 +156,22 @@ END;
 alter table Book_Taken add IsReturned bit default 0;
 
 alter table Books add Available int
+
+
+create trigger ReduceCount
+on Book_Taken
+after Insert
+as begin
+declare @BookId int
+select @BookId = bt.BookId from Book_Taken bt
+update Books set Available = Available - 1 where BookId = @BookId
+end
+
+create trigger IncreaseCount
+on Book_Taken
+after update 
+as begin
+declare @BookId int
+select @BookId = bt.BookId from Book_Taken bt
+update Books set Available = Available + 1 where BookId = @BookId
+end

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
+using PagedList.Mvc;
 
 namespace Library.Controllers
 {
@@ -12,10 +14,10 @@ namespace Library.Controllers
     {
         Library_ManagementEntities libentities = new Library_ManagementEntities();
 
-        public ActionResult Index()
+        public ActionResult Index(int? i)
         {
             List<Book_Taken> booktaken = libentities.Book_Taken.ToList();
-            return View(booktaken);
+            return View(libentities.Book_Taken.ToList().ToPagedList(i ?? 1, 5));
         }
 
         public ActionResult Index1()

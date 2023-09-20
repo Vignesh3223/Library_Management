@@ -5,21 +5,24 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
+using PagedList.Mvc;
 
 namespace Library.Controllers
 {
+    [Authorize]
     public class FineController : Controller
     {
         Library_ManagementEntities libentities = new Library_ManagementEntities();
-        public ActionResult Index()
+        public ActionResult Index(int? a)
         {
             List<Fine> fine = libentities.Fines.ToList();
-            return View(fine);
+            return View(libentities.Fines.ToList().ToPagedList(a ?? 1,5));
         }
-        public ActionResult Index1()
+        public ActionResult Index1(int? b)
         {
             List<Fine> fine = libentities.Fines.ToList();
-            return View(fine);
+            return View(libentities.Fines.ToList().ToPagedList(b ?? 1, 5));
         }
 
         public class OrderModel

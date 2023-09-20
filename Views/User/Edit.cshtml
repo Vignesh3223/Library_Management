@@ -10,9 +10,9 @@
 @using (Html.BeginForm("Edit", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-       <hr />
+        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.UserId)
 
@@ -66,7 +66,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <button type="submit"  class="btn btn-success"><i class="fa-solid fa-check" style="color: #ffffff;"></i> Save</button>
+                <button type="submit" class="btn btn-success" id="EditUser"><i class="fa-solid fa-check" style="color: #ffffff;"></i>Edit</button>
             </div>
         </div>
     </div>
@@ -80,6 +80,13 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+            $(function () {
+                $("#EditUser").click(function () {
+                    toastr.success("User Edited", "Edit", { Timeout:3000 });
+                });
+            })
+    </script>
 }
 
 <style>
@@ -91,5 +98,4 @@
     body {
         margin-top: 3em;
     }
-    
 </style>

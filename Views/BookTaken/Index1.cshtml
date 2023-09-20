@@ -16,7 +16,7 @@
         {
             foreach (var item in Model)
             {
-                if (item.UserId == userId)
+                if (item.IsReturned != true && item.UserId == userId)
                 {
                     <div class="col-md-4 col-sm-6">
                         <div class="card text-center" style="width: 26rem;">
@@ -25,25 +25,29 @@
                                 <h5 class="card-title"> @Html.DisplayFor(modelItem => item.BookName)</h5>
                             </div>
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item">@Html.DisplayFor(modelItem => item.TakenDate)</li>
-                                <li class="list-group-item">@Html.DisplayFor(modelItem => item.ReturnDate)</li>
+                                <li class="list-group-item"><i class="fa-solid fa-clock"></i> @Html.DisplayFor(modelItem => item.TakenDate)</li>
+                                <li class="list-group-item"><i class="fa-solid fa-clock"></i> @Html.DisplayFor(modelItem => item.ReturnDate)</li>
                             </ul>
-                            @if (item.IsReturned == false)
-                            {
-                                <div class="card-body text-center">
-                                    @Html.ActionLink("Return Book", "ReturnBook", new { id = item.TakeId }, new { @class = "btn btn-primary" })
-                                </div>
-                            }
+                            <div class="card-body text-center">
+                                @Html.ActionLink("Return Book", "ReturnBook", new { id = item.TakeId }, new { @class = "btn btn-primary" })
+                            </div>
                         </div>
                     </div>
                 }
+                @*else if (item.IsReturned == true)
+                {
+                    <div class="text-center">
+                        <h1>You have returned all books</h1>
+                        <a href="@Url.Action("BookGenres", "Book")" class="btn btn-info">Continue</a>
+                    </div>
+                }*@
             }
         }
         else
         {
             <div class="text-center">
                 <h1>You don't have any books</h1>
-                <a href="@Url.Action("BookGenres", "Book")" class="btn btn-info">Take Book</a>
+                <a href="@Url.Action("BookGenres", "Book")" class="btn btn-info">Continue</a>
             </div>
         }
     </div>

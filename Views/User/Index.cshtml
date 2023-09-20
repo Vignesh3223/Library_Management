@@ -1,74 +1,99 @@
-﻿@model IEnumerable<Library.Models.User>
+﻿@model IPagedList<Library.Models.User>
 
 @{
     ViewBag.Title = "Index";
 }
 
+@using PagedList;
+@using PagedList.Mvc;
+
 <h2>Users</h2>
+<hr />
+<div>
+    @using (Html.BeginForm("Index", "User", FormMethod.Get))
+    {
+        <div class="row">
+            <div class="col-md-12" style="display:flex">
+                <h4>Find a User by Name...</h4>
+                <input type="text" name="search" placeholder="Enter Username" />
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa-solid fa-magnifying-glass" style="color: #ffffff;"></i>
+                </button>
+            </div>
+        </div>
+    }
+</div>
+<hr />
 
 <table class="table table-bordered">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Username)
+            @Html.DisplayNameFor(model => model.First().Username)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Email)
+            @Html.DisplayNameFor(model => model.First().Email)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Password)
+            @Html.DisplayNameFor(model => model.First().Password)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LastLoginDate)
+            @Html.DisplayNameFor(model => model.First().LastLoginDate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Avatar)
+            @Html.DisplayNameFor(model => model.First().Avatar)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Role.RoleName)
+            @Html.DisplayNameFor(model => model.First().Role.RoleName)
         </th>
         <th>
             Actions
         </th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Username)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Password)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastLoginDate)
-        </td>
-        <td>
-            @if (item.Avatar != null)
-            {
-                <img alt="profile" class="img-circle" src="data:image;base64,@Convert.ToBase64String(item.Avatar)" />
-            }
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Role.RoleName)
-        </td>
-        <td>
-            <a href="@Url.Action("Edit", new { id = item.UserId })">
-                <i class="fa-solid fa-pen-to-square fa-lg" style="color: #5cb85c;"></i>
-            </a> |
-            <a href="@Url.Action("Details", new { id = item.UserId })">
-                <i class="fa-solid fa-circle-info fa-lg" style="color: #5bc0de;"></i>
-            </a> |
-            <a href="@Url.Action("Delete", new { id = item.UserId })">
-                <i class="fa-solid fa-trash fa-lg" style="color: #d9534f;"></i>
-            </a>
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastLoginDate)
+            </td>
+            <td>
+                @if (item.Avatar != null)
+                {
+                    <img alt="profile" class="img-circle" src="data:image;base64,@Convert.ToBase64String(item.Avatar)" />
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Role.RoleName)
+            </td>
+            <td>
+                <a href="@Url.Action("Edit", new { id = item.UserId })">
+                    <i class="fa-solid fa-pen-to-square fa-lg" style="color: #5cb85c;"></i>
+                </a> |
+                <a href="@Url.Action("Details", new { id = item.UserId })">
+                    <i class="fa-solid fa-circle-info fa-lg" style="color: #5bc0de;"></i>
+                </a> |
+                <a href="@Url.Action("Delete", new { id = item.UserId })">
+                    <i class="fa-solid fa-trash fa-lg" style="color: #d9534f;"></i>
+                </a>
+            </td>
+        </tr>
+    }
 
 </table>
+
+<div class="text-center">
+    @Html.PagedListPager(Model, i => Url.Action("Index", "User", new { i, search = Request.QueryString["search"] }))
+</div>
+
 
 <style>
 
@@ -81,25 +106,30 @@
         height: 100px;
     }
 
-    table th,table td{
-        text-align:center;
+    table th, table td {
+        text-align: center;
     }
 
     table th {
         background-color: #9400FF;
-        color:white;
+        color: white;
     }
 
     table td {
         color: #0C356A;
         background-color: #FFF5E0;
-        font-weight:600;
-        font-size:16px;
-        font-family:'Times New Roman';
+        font-weight: 600;
+        font-size: 16px;
+        font-family: 'Times New Roman';
     }
 
     body {
         margin-top: 3em;
     }
 
+    input {
+        width: 300px;
+        height: 39px;
+        margin-left: 1em;
+    }
 </style>

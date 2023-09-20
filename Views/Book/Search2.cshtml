@@ -1,0 +1,77 @@
+﻿
+@{
+    ViewBag.Title = "Search2";
+}
+
+<h1>Your Search Results...</h1>
+<hr />
+
+<div class="row">
+    @foreach (var result in Model)
+    {
+        <div class="col-md-6">
+            <div class="card" style="max-width: 500px;">
+                <div class="row g-0" id="card-content">
+                    <div class="col-md-5">
+                        @foreach (var property in result.GetType().GetProperties())
+                        {
+                            if (property.Name == "Image")
+                            {
+                                <img src="data:image;base64,@Convert.ToBase64String((byte[])property.GetValue(result))" alt="Product Image" />
+                            }
+                        }
+                    </div>
+                    <div class="col-md-7">
+                        <div class="card-body">
+                            @foreach (var property in result.GetType().GetProperties())
+                            {
+                                if (property.Name != "Image")
+                                {
+                                    <h4>@property.Name: @property.GetValue(result)</h4>
+                                }
+                            }
+                        </div>
+                       <a href="@Url.Action("TakeBook")" class="btn btn-success">Take Book</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+<div>
+    <a href="@Url.Action("BookGenres")" class="btn btn-warning">
+        <i class="fa-solid fa-arrow-left" style="color: #000000;"></i> Go Back
+    </a>
+</div>
+
+
+
+<style>
+    body {
+        margin-top: 3em;
+    }
+
+    img {
+        height: 200px;
+        width: 175px;
+    }
+
+    .card {
+        margin: 10px 0 10px 0;
+        background-color: #07182E;
+        padding: 5px;
+        border-radius: 10px;
+        position: relative;
+        box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+        background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+    }
+
+    #card-content {
+        font-size: 18px;
+        font-weight: 700;
+        color: whitesmoke;
+    }
+</style>
+

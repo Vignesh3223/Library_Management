@@ -1,8 +1,11 @@
-﻿@model IEnumerable<Library.Models.Fine>
+﻿@model IPagedList<Library.Models.Fine>
 
 @{
     ViewBag.Title = "Index1";
 }
+
+@using PagedList;
+@using PagedList.Mvc;
 
 <h2>Penalty Dues</h2>
 <hr />
@@ -15,16 +18,16 @@
     <table class="table table-bordered">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.BookName)
+                @Html.DisplayNameFor(model => model.First().BookName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ExceededDays)
+                @Html.DisplayNameFor(model => model.First().ExceededDays)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FineAmount)
+                @Html.DisplayNameFor(model => model.First().FineAmount)
             </th>
             <th>
-               @Html.DisplayNameFor(model => model.IsPaid)
+                @Html.DisplayNameFor(model => model.First().IsPaid)
             </th>
 
             <th>Action</th>
@@ -37,37 +40,42 @@
             {
                 if (item.UserId == userId)
                 {
-                <div class="form-group" hidden>
-                    <input type="number" name="FineAmount" id="FineAmount" value="@item.FineAmount" />
-                    <input type="text" name="Username" id="FineAmount" value="@item.Username" />
-                    <input type="text" name="Email" id="Email" value="@item.Email" />
-                    <input type="number" name="FineId" id="Fineid" value="@item.FineId" />
-                </div>
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.BookName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ExceededDays)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FineAmount)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IsPaid)
-                    </td>
-                    @if (item.IsPaid == false)
-                    {
+                    <div class="form-group" hidden>
+                        <input type="number" name="FineAmount" id="FineAmount" value="@item.FineAmount" />
+                        <input type="text" name="Username" id="FineAmount" value="@item.Username" />
+                        <input type="text" name="Email" id="Email" value="@item.Email" />
+                        <input type="number" name="FineId" id="Fineid" value="@item.FineId" />
+                    </div>
+                    <tr>
                         <td>
-                            <button type="submit" class="btn btn-primary">Pay</button>
+                            @Html.DisplayFor(modelItem => item.BookName)
                         </td>
-                    }
-                </tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ExceededDays)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FineAmount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IsPaid)
+                        </td>
+                        @if (item.IsPaid == false)
+                        {
+                            <td>
+                                <button type="submit" class="btn btn-primary">Pay</button>
+                            </td>
+                        }
+                    </tr>
                 }
             }
         }
 
     </table>
+
+    <div class="text-center">
+        @Html.PagedListPager(Model, b => Url.Action("Index1", "Fine", new { b }))
+    </div>
+
 }
 
 else

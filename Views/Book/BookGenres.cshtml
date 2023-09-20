@@ -1,11 +1,32 @@
-﻿@model IEnumerable<Library.Models.Book_Genre>
+﻿@model IPagedList<Library.Models.Book_Genre>
 
 @{
     ViewBag.Title = "BookGenres";
 }
 
+@using PagedList;
+@using PagedList.Mvc;
+
 <h2>Pick your Genre</h2>
 <hr />
+
+<div class="container-fluid" style="display:flex">
+    <div class="row">
+        <div class="col-md-6 col-sm-12 text-center">
+            <h4>Find the Book you are Looking For?</h4>
+        </div>
+        <div class="col-md-6 col-sm-12 text-right">
+            <form action="@Url.Action("SearchBook","Book")" method="get">
+                <div class="form-group" style="display:flex;justify-content:right">
+                    <input type="search" id="name" name="name" class="form-control" placeholder="Search Book" />
+                    <button type="submit" class="btn btn-info">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<hr />
+
 <div class="row">
     @foreach (Library.Models.Book_Genre item in Model)
     {
@@ -26,12 +47,15 @@
             </div>
         </div>
     }
-    </div>
+</div>
 
+<div class="text-center">
+    @Html.PagedListPager(Model, c => Url.Action("BookGenres", "Book", new { c }))
+</div>
 <style>
 
-    body{
-        margin-top:3em;
+    body {
+        margin-top: 3em;
     }
 
     h2 {
@@ -50,16 +74,20 @@
         position: relative;
     }
 
-    .card-title a{
-        text-decoration:none;
-        background-color:rgb(178, 0, 255,0.5);
-        padding:.2em 1em .2em 1em;
-        text-align:center;
-        color:ghostwhite;
-        position:absolute;
-        top:7.3em;
-        left:.45em;
+    .card-title a {
+        text-decoration: none;
+        background-color: rgb(178, 0, 255,0.5);
+        padding: .2em 1em .2em 1em;
+        text-align: center;
+        color: ghostwhite;
+        position: absolute;
+        top: 7.3em;
+        left: .45em;
     }
 
+    input {
+        max-width: 300px;
+        margin-left: 2em;
+    }
 </style>
 

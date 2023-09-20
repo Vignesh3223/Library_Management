@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using PagedList;
+using PagedList.Mvc;
 
 namespace Library.Controllers
 {
@@ -84,10 +86,11 @@ namespace Library.Controllers
         }
 
         [Authorize(Roles = "Librarian")]
-        public ActionResult Index()
+        public ActionResult Index(string search, int? i)
         {
             List<User> user = libentities.Users.ToList();
-            return View(user);
+            return View(libentities.Users.Where(x => x.Username.StartsWith(search)
+            || search == null).ToList().ToPagedList(i ?? 1,3));
         }
 
         [HttpGet]

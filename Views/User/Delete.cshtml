@@ -23,7 +23,7 @@
             @using (Html.BeginForm())
             {
                 @Html.AntiForgeryToken()
-                <button type="submit" class="btn btn-danger">Delete <i class="fa-solid fa-trash" style="color: #ffffff;"></i></button>
+                <button type="submit" class="btn btn-danger" id="DeleteUser">Delete <i class="fa-solid fa-trash" style="color: #ffffff;"></i></button>
             }
         </div>
     </div>
@@ -34,6 +34,14 @@
         </a>
     </div>
 </div>
+
+<script type="text/javascript">
+            $(function () {
+                $("#DeleteUser").click(function () {
+                    toastr.success("User Removed", "Delete", { Timeout:3000 });
+                });
+            })
+</script>
 
 <style>
     img {
@@ -75,5 +83,4 @@
         font-size: 15px;
         font-weight: 600;
     }
-
 </style>

@@ -51,5 +51,14 @@ namespace Library.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("GenerateFine");
         }
+    
+        public virtual int ReduceCount(Nullable<int> takeId)
+        {
+            var takeIdParameter = takeId.HasValue ?
+                new ObjectParameter("TakeId", takeId) :
+                new ObjectParameter("TakeId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ReduceCount", takeIdParameter);
+        }
     }
 }

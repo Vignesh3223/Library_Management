@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title Public Library</title>
+    <title>@ViewBag.Title - Public Library</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link href="~/Content/toastr.css" rel="stylesheet" />
@@ -78,17 +78,6 @@
     @Scripts.Render("~/bundles/bootstrap")
     <script src="~/Scripts/toastr.js"></script>
     @RenderSection("scripts", required: false)
-
-    @section Scripts{
-        <script type="text/javascript">
-            $(function () {
-                $("#CreateToast").click(function () {
-                    alert("Created Successfully")
-                    //toastr.Success("Created Successfully", "Toastr");
-                });
-            })
-        </script>
-    }
 
     <style>
 

@@ -1,23 +1,28 @@
 ﻿using Library.Models;
+using Org.BouncyCastle.Tls;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
+using PagedList.Mvc;
 
 namespace Library.Controllers
 {
+    [Authorize]
     public class BookController : Controller
     {
         Library_ManagementEntities libentities = new Library_ManagementEntities();
 
-        public ActionResult BookGenres()
+        public ActionResult BookGenres(int? c)
         {
             List<Book_Genre> bookgenre = libentities.Book_Genre.ToList();
-            return View(bookgenre);
+            return View(libentities.Book_Genre.ToList().ToPagedList(c ?? 1,6));
         }
 
+        //[Route("Index/{GenreId}")]
         public ActionResult Index(int? GenreId)
         {
             List<Book> book = libentities.Books.Where(bk => bk.GenreId == GenreId).ToList();
@@ -117,7 +122,7 @@ namespace Library.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult TakeBook( [Bind(Include = "TakeId,UserId,Username,Email,BookId,BookName,TakenDate,ReturnDate")] Book_Taken booktaken )
+        public ActionResult TakeBook( [Bind(Include = "TakeId,UserId,Username,Email,BookId,BookName,TakenDate,ReturnDate,IsReturned")] Book_Taken booktaken )
         {
             int? userId = TempData["userid"] as int?;
             string username = Session["name"] as string;
@@ -136,10 +141,48 @@ namespace Library.Controllers
                 booktaken.TakenDate = DateTime.Now;
                 booktaken.ReturnDate = DateTime.Now.AddDays(14);
                 booktaken.Picture = Pic;
+                booktaken.IsReturned = false;
                 libentities.Book_Taken.Add(booktaken);
                 libentities.SaveChanges();
                 return RedirectToAction("Index1", "BookTaken");
             }
+            return View();
+        }
+
+        public ActionResult SearchBook(string name)
+        {
+            var searchResults = new List<Object>();
+
+            var booksAndAuthors = libentities.Books
+                .Where(b => b.BookName.Contains(name) || b.Author.Contains(name))
+                .Select(b => new { Id = b.BookId, Name = b.BookName, Available = b.Available, Author = b.Author, Image = b.Picture });
+
+            searchResults.AddRange(booksAndAuthors);
+
+            if (searchResults.Any())
+            {
+                if (User.IsInRole("Librarian"))
+                {
+                    return View("Search1", searchResults);
+                }
+                else
+                {
+                    return View("Search2", searchResults);
+                }
+            }
+            else
+            {
+                return RedirectToAction("BookGenres");
+            }
+        }
+
+        public ActionResult Search1()
+        {
+            return View();
+        }
+
+        public ActionResult Search2()
+        {
             return View();
         }
     }

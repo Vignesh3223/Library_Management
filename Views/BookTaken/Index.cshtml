@@ -1,8 +1,11 @@
-﻿@model IEnumerable<Library.Models.Book_Taken>
+﻿@model IPagedList<Library.Models.Book_Taken>
 
 @{
     ViewBag.Title = "Index";
 }
+
+@using PagedList;
+@using PagedList.Mvc;
 
 <h2>Taken Books</h2>
 <hr />
@@ -10,76 +13,78 @@
 <table class="table table-bordered">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.User.UserId)
+            @Html.DisplayNameFor(model => model.First().User.UserId)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Username)
+            @Html.DisplayNameFor(model => model.First().Username)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Book.BookId)
+            @Html.DisplayNameFor(model => model.First().Book.BookId)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.BookName)
+            @Html.DisplayNameFor(model => model.First().BookName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TakenDate)
+            @Html.DisplayNameFor(model => model.First().TakenDate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ReturnDate)
+            @Html.DisplayNameFor(model => model.First().ReturnDate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Picture)
+            @Html.DisplayNameFor(model => model.First().Picture)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IsReturned)
+            @Html.DisplayNameFor(model => model.First().IsReturned)
         </th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.UserId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Username)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Book.BookId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BookName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TakenDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ReturnDate)
-        </td>
-        <td>
-            @if (item.Picture != null)
-            {
-                <img src="data:image;base64,@Convert.ToBase64String(item.Picture)" alt="Cover">
-            }
-        </td>
-        @if (item.IsReturned == false)
-         {
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.UserId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Book.BookId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TakenDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReturnDate)
+            </td>
+            <td>
+                @if (item.Picture != null)
+                {
+                    <img src="data:image;base64,@Convert.ToBase64String(item.Picture)" alt="Cover">
+                }
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IsReturned)
             </td>
-         }
         </tr>
-}
+    }
 
 </table>
 
+<div class="text-center">
+    @Html.PagedListPager(Model, i => Url.Action("Index","BookTaken", new {i}))
+</div>
+
 <style>
-    body{
-        margin-top:3em;
+    body {
+        margin-top: 3em;
     }
 
-    img{
-        width:50px;
-        height:50px;
+    img {
+        width: 50px;
+        height: 50px;
     }
 
     table th, td {

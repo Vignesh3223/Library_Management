@@ -28,7 +28,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions text-center no-color">
-            <input type="submit" value="TakeBook" class="btn btn-primary" />
+            <input type="submit" value="TakeBook" class="btn btn-primary" id="BookTake" />
         </div>
     }
 
@@ -39,6 +39,16 @@
     </div>
 
 </div>
+
+@section Scripts{
+    <script type="text/javascript">
+        $(function () {
+            $("#BookTake").click(function () {
+                toastr.success("Book Taken", "TakeBook", { Timeout: 4000 });
+            });
+        })
+    </script>
+}
 
 <style>
 
@@ -72,9 +82,10 @@
         height: 170px;
     }
 
-    h3{
-        color:whitesmoke;
+    h3 {
+        color: whitesmoke;
     }
+
     .card-text {
         font-size: 18px;
         font-weight: 700;

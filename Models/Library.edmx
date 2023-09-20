@@ -287,6 +287,9 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Fine" EntitySet="Fines" />
           </AssociationSet>
+          <FunctionImport Name="ReduceCount">
+          <Parameter Name="TakeId" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="Validate_User_Result">
           <Property Type="Int32" Name="UserId" Nullable="true" />
