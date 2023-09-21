@@ -79,7 +79,8 @@ alter Procedure [dbo].[Validate_User]
 as begin
 set nocount on
 declare @UserId int,@LastLoginDate datetime,@RoleId int
-select @UserId = UserId,@LastLoginDate = LastLoginDate,@RoleId = RoleId from Users where Email = @Email and [Password] = @Password
+select @UserId = UserId,@LastLoginDate = LastLoginDate,@RoleId = RoleId from Users where Email = @Email and 
+Convert(varchar(100),DECRYPTBYPASSPHRASE('PublicLibrary',Users.Password))= @Password
 if @UserId is not null
 begin
 update Users set LastLoginDate = GETDATE() where UserId = @UserId
@@ -175,3 +176,13 @@ declare @BookId int
 select @BookId = bt.BookId from Book_Taken bt
 update Books set Available = Available + 1 where BookId = @BookId
 end
+
+alter table Users alter column Password varchar(100)
+
+create trigger EncryptPassword 
+on Users
+after insert as begin
+update Users set Password = ENCRYPTBYPASSPHRASE('PublicLibrary',inserted.Password) from inserted where Users.UserId = inserted.UserId
+end
+
+update Users set Password = ENCRYPTBYPASSPHRASE('PublicLibrary',Password) where UserId > 2
