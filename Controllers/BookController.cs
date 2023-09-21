@@ -14,7 +14,7 @@ namespace Library.Controllers
     [Authorize]
     public class BookController : Controller
     {
-        Library_ManagementEntities libentities = new Library_ManagementEntities();
+        Library_ManagementEntities1 libentities = new Library_ManagementEntities1();
 
         public ActionResult BookGenres(int? c)
         {

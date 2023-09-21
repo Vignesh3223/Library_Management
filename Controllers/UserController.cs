@@ -13,7 +13,7 @@ namespace Library.Controllers
 {
     public class UserController : Controller
     {
-        Library_ManagementEntities libentities = new Library_ManagementEntities();
+        Library_ManagementEntities1 libentities = new Library_ManagementEntities1();
 
         [AllowAnonymous]
         public ActionResult Login()

@@ -29,10 +29,10 @@ namespace Library.Models
         public Nullable<int> RoleId { get; set; }
         public byte[] Avatar { get; set; }
     
-        public virtual Role Role { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Book_Taken> Book_Taken { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Fine> Fines { get; set; }
+        public virtual Role Role { get; set; }
     }
 }
