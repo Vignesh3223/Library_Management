@@ -68,7 +68,7 @@
           <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Username" Type="varchar" MaxLength="25" />
           <Property Name="Email" Type="varchar" MaxLength="35" />
-          <Property Name="Password" Type="varchar" MaxLength="20" />
+          <Property Name="Password" Type="varchar" MaxLength="100" />
           <Property Name="LastLoginDate" Type="datetime" />
           <Property Name="RoleId" Type="int" />
           <Property Name="Avatar" Type="varbinary(max)" />
@@ -226,7 +226,7 @@
           <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Username" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="LastLoginDate" Type="DateTime" Precision="3" />
           <Property Name="RoleId" Type="Int32" />
           <NavigationProperty Name="Role" Relationship="Self.FK__Users__RoleId__38996AB5" FromRole="Users" ToRole="Roles" />
