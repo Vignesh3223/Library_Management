@@ -142,6 +142,38 @@ namespace Library.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public ActionResult EditProfile(int? id)
+        {
+            User currentuser = libentities.Users.Find(id);
+            return View(currentuser);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditProfile(HttpPostedFile Avatar, User updatedUser)
+        {
+            if (ModelState.IsValid)
+            {
+                User currentuser = libentities.Users.Find(updatedUser.UserId);
+
+                if (currentuser != null)
+                {
+                    currentuser.Username = updatedUser.Username;
+                    currentuser.Email = updatedUser.Email;
+                    byte[] edpic;
+                    using (var reader = new BinaryReader(Avatar.InputStream))
+                    {
+                        edpic = reader.ReadBytes(Avatar.ContentLength);
+                    }
+                    updatedUser.Avatar = edpic;
+                    libentities.Entry(updatedUser).State = System.Data.Entity.EntityState.Modified;
+                    libentities.SaveChanges();
+                }
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();

@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using MimeKit;
 using MailKit.Net.Smtp;
+using Library.Models;
+using System.IO;
 
 namespace Library.Controllers
 {

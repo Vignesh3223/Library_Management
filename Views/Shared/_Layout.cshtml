@@ -37,7 +37,7 @@
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa-solid fa-circle-user" style="color: navy;"></i> @Session["name"]</a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#"><i class="fa-solid fa-user-pen" style="color: #000000;"></i> Edit Profile</a></li>
+                                    <li><a href="@Url.Action("EditProfile","User")"><i class="fa-solid fa-user-pen" style="color: #000000;"></i> Edit Profile</a></li>
                                     <li><a href="@Url.Action("Logout","User")"><i class="fa-solid fa-right-from-bracket" style="color: #000000;"></i> Logout</a></li>
                                 </ul>
                             </li>
@@ -59,7 +59,7 @@
                                     <i class="fa-solid fa-circle-user" style="color: navy;"></i> @Session["name"]
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#"><i class="fa-solid fa-user-pen" style="color: #000000;"></i> Edit Profile</a></li>
+                                    <li><a href="@Url.Action("EditProfile","User")"><i class="fa-solid fa-user-pen" style="color: #000000;"></i> Edit Profile</a></li>
                                     <li><a href="@Url.Action("Logout","User")"><i class="fa-solid fa-right-from-bracket" style="color: #000000;"></i> Logout</a></li>
                                 </ul>
                             </li>
