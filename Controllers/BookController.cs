@@ -93,8 +93,7 @@ namespace Library.Controllers
                 book.Picture = cover;
                 libentities.Entry(book).State = System.Data.Entity.EntityState.Modified;
                 libentities.SaveChanges();
-                return Redirect("returnUrl");
-                //return RedirectToAction("Index");
+                return RedirectToAction("Index");
             }
             return View();
         }
@@ -122,6 +121,7 @@ namespace Library.Controllers
             TempData["Bookname"] = book.BookName;
             TempData["Picture"] = book.Picture;
             TempData["userid"] = Session["userID"];
+            ViewBag.ReturnUrl = Request.UrlReferrer;
             return View(book);
         }
 
@@ -154,13 +154,22 @@ namespace Library.Controllers
             return View();
         }
 
+        public class SearchResult
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+            public int Available { get; set; }
+            public string Author { get; set; }
+            public byte[] Image { get; set; }
+        }
+
         public ActionResult SearchBook(string name)
         {
             var searchResults = new List<Object>();
 
             var booksAndAuthors = libentities.Books
                 .Where(b => b.BookName.Contains(name) || b.Author.Contains(name))
-                .Select(b => new { Id = b.BookId, Name = b.BookName, Available = b.Available, Author = b.Author, Image = b.Picture });
+                .Select(b => new { Id = b.BookId, Name = b.BookName, Available = b.Available, Author = b.Author, Image = b.Picture }).ToList();
 
             searchResults.AddRange(booksAndAuthors);
 

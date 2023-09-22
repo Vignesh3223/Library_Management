@@ -2,6 +2,11 @@
 
 @{
     ViewBag.Title = "TakeBook";
+    if (Request.UrlReferrer != null)
+    {
+    string returnUrl = Request.UrlReferrer.ToString();
+    ViewBag.ReturnUrl = returnUrl;
+    }
 }
 
 <h2>TakeBook</h2>
@@ -33,7 +38,7 @@
     }
 
     <div>
-        <a href="@Url.Action("Index1")" class="btn btn-warning">
+        <a href="@ViewBag.ReturnUrl" class="btn btn-warning">
             <i class="fa-solid fa-arrow-left" style="color: #000000;"></i> Go Back
         </a>
     </div>
