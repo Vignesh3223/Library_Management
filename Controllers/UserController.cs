@@ -44,6 +44,7 @@ namespace Library.Controllers
                         {
                             Session["name"] = users.Username;
                             Session["email"] = users.Email;
+                            Session["Avatar"] = users.Avatar;
                         }
                     }
                     FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, user.Email, DateTime.Now, DateTime.Now.AddMinutes(30), false, roleUser.Roles, FormsAuthentication.FormsCookiePath);
@@ -145,13 +146,13 @@ namespace Library.Controllers
         [HttpGet]
         public ActionResult EditProfile(int? id)
         {
-            User currentuser = libentities.Users.Find(id);
-            return View(currentuser);
+            User user = libentities.Users.Find(id);
+            return View(user);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditProfile(HttpPostedFile Avatar, User updatedUser)
+        public ActionResult EditProfile(User updatedUser, HttpPostedFileBase updatedAvatar)
         {
             if (ModelState.IsValid)
             {
@@ -161,17 +162,18 @@ namespace Library.Controllers
                 {
                     currentuser.Username = updatedUser.Username;
                     currentuser.Email = updatedUser.Email;
-                    byte[] edpic;
-                    using (var reader = new BinaryReader(Avatar.InputStream))
+                    if (updatedAvatar != null && updatedAvatar.ContentLength > 0)
                     {
-                        edpic = reader.ReadBytes(Avatar.ContentLength);
+                        using (var reader = new BinaryReader(updatedAvatar.InputStream))
+                        {
+                            currentuser.Avatar = reader.ReadBytes(updatedAvatar.ContentLength);
+                        }
                     }
-                    updatedUser.Avatar = edpic;
-                    libentities.Entry(updatedUser).State = System.Data.Entity.EntityState.Modified;
                     libentities.SaveChanges();
+                    return RedirectToAction("Index", "Home");
                 }
             }
-            return RedirectToAction("Index", "Home");
+            return View(updatedUser);
         }
 
         public ActionResult Logout()

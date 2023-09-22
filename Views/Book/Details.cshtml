@@ -2,6 +2,11 @@
 
 @{
     ViewBag.Title = "Details";
+    if (Request.UrlReferrer != null)
+    {
+        string returnUrl = Request.UrlReferrer.ToString();
+        ViewBag.ReturnUrl = returnUrl;
+    }
 }
 
 <h2>Book Details</h2>
@@ -15,7 +20,7 @@
         <ul class="list-group list-group-flush">
             <li class="list-group-item"><i class="fa-solid fa-user-pen" style="color: #000000;"></i> @Html.DisplayFor(model => model.Author)</li>
             <li class="list-group-item"><i class="fa-solid fa-book" style="color: #000000;"></i> @Html.DisplayFor(model => model.Book_Genre.Genre)</li>
-            <li class="list-group-item"> @Html.DisplayFor(model => model.Available)</li>
+            <li class="list-group-item"> Available : @Html.DisplayFor(model => model.Available)</li>
         </ul>
         <div class="card-body text-center">
             <a href="@Url.Action("Edit", new { id = Model.BookId })" class="btn btn-success">
@@ -25,7 +30,8 @@
     </div>
 
     <div>
-        <a href="@Url.Action("Index")" class="btn btn-warning">
+        
+        <a href="@ViewBag.ReturnUrl" class="btn btn-warning">
             <i class="fa-solid fa-arrow-left" style="color: #000000;"></i> Go Back
         </a>
     </div>

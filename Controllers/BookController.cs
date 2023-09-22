@@ -37,6 +37,7 @@ namespace Library.Controllers
         {
             List<Book_Genre> genre = libentities.Book_Genre.ToList();
             ViewBag.Book_Genre = new SelectList(genre, "GenreId", "Genre");
+            ViewBag.ReturnUrl = Request.UrlReferrer;
             return View();
         }
 
@@ -64,6 +65,7 @@ namespace Library.Controllers
         public ActionResult Details(int? id)
         {
             Book book = libentities.Books.Find(id);
+            ViewBag.ReturnUrl = Request.UrlReferrer;
             return View(book);
         }
 
@@ -72,6 +74,7 @@ namespace Library.Controllers
             Book book = libentities.Books.Find(id);
             List<Book_Genre> genre = libentities.Book_Genre.ToList();
             ViewBag.Book_Genre = new SelectList(genre, "GenreId", "Genre");
+            ViewBag.ReturnUrl = Request.UrlReferrer;
             return View(book);
         }
 
@@ -90,7 +93,8 @@ namespace Library.Controllers
                 book.Picture = cover;
                 libentities.Entry(book).State = System.Data.Entity.EntityState.Modified;
                 libentities.SaveChanges();
-                return RedirectToAction("Index");
+                return Redirect("returnUrl");
+                //return RedirectToAction("Index");
             }
             return View();
         }
@@ -98,6 +102,7 @@ namespace Library.Controllers
         public ActionResult Delete(int? id)
         {
             Book book = libentities.Books.Find(id);
+            ViewBag.ReturnUrl = Request.UrlReferrer;
             return View(book);
         }
 

@@ -303,6 +303,7 @@
     <Content Include="Views\Book\Search1.cshtml" />
     <Content Include="Views\Book\Search2.cshtml" />
     <Content Include="Views\User\EditProfile.cshtml" />
+    <Content Include="Views\Shared\_Navbar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

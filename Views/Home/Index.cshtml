@@ -153,8 +153,7 @@
 
 <div class="container-fluid page4">
   <div class="row">
-      <div class="col-md-7"></div>
-      <div class="col-md-5">
+      <div class="col-md-5" id="feedback-col">
           <form method="post" action="@Url.Action("Mailer", "Home")">
           @Html.AntiForgeryToken()
              <div class="form-group">
@@ -191,7 +190,9 @@
         body {
             margin-top: 3em;
         }
-
+        #feedback-col{
+           float:right;
+        }
         .carousel-inner {
             height: 550px;
         }
@@ -284,7 +285,8 @@
             font-weight: 500;
             color:ghostwhite;
             background-image:url("/Content/images/feedback1.png");
-            background-size:contain;
+            background-size:cover;
+            background-position:right;
             background-repeat:no-repeat;
             padding:10px;
         }
@@ -292,4 +294,5 @@
         input, textarea {
             max-width: 400px;
         }
+
     </style>

@@ -41,7 +41,7 @@
 @using (Html.BeginForm("Payment", "Fine"))
 {
     @Html.AntiForgeryToken()
-    <input name="fineid" id="fineid" value="@Model.fineId" />
+    <input name="fineid" id="fineid" value="@Model.fineId" hidden/>
     @Html.Hidden("rzp_paymentid")
     @Html.Hidden("rzp_orderid")
     <button type="submit" id="rzp-paymentresponse" class="btn btn-primary" hidden>Complete</button>

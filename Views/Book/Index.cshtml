@@ -6,9 +6,10 @@
 
 <h2>Books</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<div>
+    <a href="@Url.Action("Create")" class="btn btn-primary">Add Book</a>
+</div>
+<hr />
 
 <div class="row">
     @foreach (var item in Model)

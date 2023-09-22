@@ -1,0 +1,94 @@
+﻿<div class="navbar navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" title="more options">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <img src="@Url.Content("~/Content/images/logo.gif")" style="width:100px;height:80px" />
+        </div>
+        @if (User.Identity.IsAuthenticated)
+        {
+            byte[] Profile = Session["Avatar"] as byte[];
+            if (User.IsInRole("Librarian"))
+            {
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Users", "Index", "User")</li>
+                        <li>@Html.ActionLink("Books", "BookGenres", "Book")</li>
+                        <li>@Html.ActionLink("Books Taken", "Index", "BookTaken")</li>
+                        <li>@Html.ActionLink("Penalty", "Index", "Fine")</li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <img src="data:image;base64,@Convert.ToBase64String(Profile)" class="img-circle pic" alt="Avatar" />
+                                @Session["name"]  <i class="fa fa-caret-down"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="@Url.Action("EditProfile","User", new {id = Session["userID"]})"><i class="fa-solid fa-user-pen" style="color: #000000;"></i> Edit Profile</a></li>
+                                <li><a href="@Url.Action("Logout","User")"><i class="fa-solid fa-right-from-bracket" style="color: #000000;"></i> Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            }
+            if (User.IsInRole("User"))
+            {
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Books", "BookGenres", "Book")</li>
+                        <li>@Html.ActionLink("Books Taken", "Index1", "BookTaken")</li>
+                        <li>@Html.ActionLink("Penalty", "Index1", "Fine")</li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <img src="data:image;base64,@Convert.ToBase64String(Profile)" class="img-circle pic" alt="Avatar" />
+                                @Session["name"]  <i class="fa fa-caret-down"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="@Url.Action("EditProfile","User", new {id = Session["userID"]})"><i class="fa-solid fa-user-pen" style="color: #000000;"></i> Edit Profile</a></li>
+                                <li><a href="@Url.Action("Logout","User")"><i class="fa-solid fa-right-from-bracket" style="color: #000000;"></i> Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Register", "Register", "User")</li>
+                    <li>@Html.ActionLink("Login", "Index", "User")</li>
+                </ul>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .navbar {
+        background-color: #AED2FF;
+    }
+
+    .navbar-nav li {
+        font-size: 16px;
+        margin-top: 1em;
+        margin-left: .5em;
+        font-weight: bold;
+        color: navy;
+    }
+
+    .pic {
+        width: 45px;
+        height: 40px;
+        padding-right: 5px;
+    }
+</style>
+

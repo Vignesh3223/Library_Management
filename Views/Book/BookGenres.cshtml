@@ -7,22 +7,17 @@
 @using PagedList;
 @using PagedList.Mvc;
 
-<h2>Pick your Genre</h2>
-<hr />
-
-<div class="container-fluid" style="display:flex">
-    <div class="row">
-        <div class="col-md-6 col-sm-12 text-center">
-            <h4>Find the Book you are Looking For?</h4>
-        </div>
-        <div class="col-md-6 col-sm-12 text-right">
-            <form action="@Url.Action("SearchBook","Book")" method="get">
-                <div class="form-group" style="display:flex;justify-content:right">
-                    <input type="search" id="name" name="name" class="form-control" placeholder="Search Book" />
-                    <button type="submit" class="btn btn-info">Search</button>
-                </div>
-            </form>
-        </div>
+<div class="row">
+    <div class="col-md-4 col-sm-12">
+            <h2>Pick your Genre</h2> 
+    </div>
+    <div class="col-md-8 col-sm-12" style="display:flex;padding-top:1.2em;justify-content:end">
+       <form action="@Url.Action("SearchBook","Book")" method="get">
+           <div class="form-group" style="display:flex">
+               <input type="search" id="name" name="name" placeholder="Looking for your Favourite Book?" />
+               <button type="submit" class="btn btn-info">Search</button>
+           </div>
+       </form>
     </div>
 </div>
 <hr />
@@ -32,7 +27,7 @@
     {
         <div class="col-md-4 col-sm-6">
             <div class="card text-white">
-                <img src="data:image;base64,@Convert.ToBase64String(item.Image)" class="card" alt="Genre">
+                <img src="data:image;base64,@Convert.ToBase64String(item.Image)" class="img-card-top" alt="Genre">
                 <h3 class="card-title">
                     @if (User.IsInRole("Librarian"))
                     {
@@ -86,8 +81,8 @@
     }
 
     input {
-        max-width: 300px;
-        margin-left: 2em;
+        width: 700px;
+        margin-right: 1px;
     }
 </style>
 
