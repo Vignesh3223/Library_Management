@@ -156,24 +156,28 @@ namespace Library.Controllers
 
         public class SearchResult
         {
-            public int Id { get; set; }
+            public Nullable<int> Id { get; set; }
             public string Name { get; set; }
-            public int Available { get; set; }
+            public Nullable<int> Available { get; set; }
             public string Author { get; set; }
             public byte[] Image { get; set; }
         }
 
         public ActionResult SearchBook(string name)
         {
-            var searchResults = new List<Object>();
+            var searchResults = new SearchResult();
 
             var booksAndAuthors = libentities.Books
                 .Where(b => b.BookName.Contains(name) || b.Author.Contains(name))
                 .Select(b => new { Id = b.BookId, Name = b.BookName, Available = b.Available, Author = b.Author, Image = b.Picture }).ToList();
 
-            searchResults.AddRange(booksAndAuthors);
+            searchResults.Name = booksAndAuthors.First().Name;
+            searchResults.Author = booksAndAuthors.First().Author;
+            searchResults.Id = booksAndAuthors.First().Id;
+            searchResults.Available = booksAndAuthors.First().Available;
+            searchResults.Image = booksAndAuthors.First().Image;
 
-            if (searchResults.Any())
+            if (searchResults.Id!=null)
             {
                 if (User.IsInRole("Librarian"))
                 {

@@ -19,11 +19,11 @@ namespace Library.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Mailer(string name,string email)
+        public ActionResult Mailer(string Name,string Email)
         {
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("VIGNESH","20bsca150vigneshr@skacas.ac.in"));
-            message.To.Add(new MailboxAddress(name, email));
+            message.To.Add(new MailboxAddress(Name, Email));
             message.Subject = "FEEDBACK";
             var body = new BodyBuilder { TextBody = "Thank you for your feedback...." };
             message.Body = body.ToMessageBody();

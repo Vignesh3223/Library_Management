@@ -5,12 +5,12 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="4b3dcfbe7d7043dba987cf7f1bb63bd5" Name="Diagram1">
-        <EntityTypeShape EntityType="Library_ManagementModel.Book_Genre" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Library_ManagementModel.Book_Taken" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="Library_ManagementModel.Book" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Library_ManagementModel.Fine" Width="1.5" PointX="7.5" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Library_ManagementModel.Book_Genre" Width="1.5" PointX="1.875" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Library_ManagementModel.Book_Taken" Width="1.5" PointX="5.125" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Library_ManagementModel.Book" Width="1.5" PointX="4.375" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Library_ManagementModel.Fine" Width="1.5" PointX="7.75" PointY="2.625" IsExpanded="true" />
         <EntityTypeShape EntityType="Library_ManagementModel.Role" Width="1.5" PointX="0.75" PointY="2" IsExpanded="true" />
-        <EntityTypeShape EntityType="Library_ManagementModel.User" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Library_ManagementModel.User" Width="1.5" PointX="2.875" PointY="1.125" IsExpanded="true" />
         <AssociationConnector Association="Library_ManagementModel.FK__Books__GenreId__5CD6CB2B" ManuallyRouted="false" />
         <AssociationConnector Association="Library_ManagementModel.FK__Book_Take__BookI__60A75C0F" ManuallyRouted="false" />
         <AssociationConnector Association="Library_ManagementModel.FK__Book_Take__UserI__5FB337D6" ManuallyRouted="false" />

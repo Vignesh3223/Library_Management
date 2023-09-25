@@ -138,7 +138,7 @@ BEGIN
         FineAmount = DATEDIFF(DAY, bt.ReturnDate, GETDATE()) * 5
     FROM Fine AS f
     JOIN Book_Taken AS bt ON f.TakeId = bt.TakeId
-    WHERE DATEDIFF(DAY, bt.ReturnDate, GETDATE()) > 0;
+    WHERE DATEDIFF(DAY, bt.ReturnDate, GETDATE()) > 0 AND bt.IsReturned = 0 
 
     INSERT INTO Fine (TakeId, UserId, Username, BookId, BookName, Email, ExceededDays, FineAmount)
     SELECT bt.TakeId, bt.UserId, bt.Username, bt.BookId, bt.BookName, bt.Email,
@@ -186,3 +186,12 @@ update Users set Password = ENCRYPTBYPASSPHRASE('PublicLibrary',inserted.Passwor
 end
 
 update Users set Password = ENCRYPTBYPASSPHRASE('PublicLibrary',Password) where UserId > 2
+
+--create table Feedback
+--(
+--FeedbackId int primary key identity(1,1),
+--Name varchar(25),
+--Email varchar(35),
+--Feedback varchar(1000)
+--)
+

@@ -1,4 +1,5 @@
-﻿
+﻿@model Library.Controllers.BookController.SearchResult
+
 @{
     ViewBag.Title = "Search2";
 }
@@ -7,36 +8,23 @@
 <hr />
 
 <div class="row">
-    @foreach (var result in Model)
-    {
         <div class="col-md-6">
             <div class="card" style="max-width: 500px;">
                 <div class="row g-0" id="card-content">
                     <div class="col-md-5">
-                        @foreach (var property in result.GetType().GetProperties())
-                        {
-                            if (property.Name == "Image")
-                            {
-                                <img src="data:image;base64,@Convert.ToBase64String((byte[])property.GetValue(result))" alt="Product Image" />
-                            }
-                        }
+                        <img src="data:image;base64,@Convert.ToBase64String(Model.Image)" alt="Product Image" />
                     </div>
                     <div class="col-md-7">
                         <div class="card-body">
-                            @foreach (var property in result.GetType().GetProperties())
-                            {
-                                if (property.Name != "Image")
-                                {
-                                    <h4>@property.Name: @property.GetValue(result)</h4>
-                                }
-                            }
+                            <h4>Book : @Model.Name</h4>
+                            <h4>Author : @Model.Author</h4>
+                            <h4>Available : @Model.Available</h4>
                         </div>
-                       <a href="@Url.Action("TakeBook")" class="btn btn-success">Take Book</a>
+                        <a href="@Url.Action("TakeBook", "Book", new {id = Model.Id})" class="btn btn-success">Take Book</a>
                     </div>
                 </div>
             </div>
         </div>
-    }
 </div>
 
 
